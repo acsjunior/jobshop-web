@@ -1,1 +1,1 @@
-PAGE_TITLES = ["Sobre", "Job Shop"]
+PAGES = {"about": "Sobre", "jobshop": "Job Shop"}

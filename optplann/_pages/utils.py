@@ -76,9 +76,14 @@ def generate_input_grid(df: pd.DataFrame):
     return AgGrid(df, gridOptions=go, enable_enterprise_modules=False)
 
 
-def show_solver_log(is_optimal: bool, solver_time: float):
+def show_solver_log(is_optimal: bool, solver_time: float, objective: float):
     if is_optimal:
-        st.success(f"Solução ótima encontrada em {np.round(solver_time,4)} segundos.")
+        st.success(
+            f"""
+            Solução ótima encontrada em {np.round(solver_time,4)} segundos. \n
+            Função objetivo {objective}.
+            """
+        )
     else:
         st.error("Não foi possível encontrar uma solução factível.")
 

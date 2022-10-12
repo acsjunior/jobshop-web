@@ -10,6 +10,7 @@ class JobShop:
     start_time: pd.Timestamp
     time_unit: str
     solver_time: float
+    objective: float
     is_optimal: bool
 
     def __init__(
@@ -24,6 +25,7 @@ class JobShop:
         self.start_time = start_time
         self.time_unit = time_unit
         self.solver_time = 0.0
+        self.objective = 0.0
         self.is_optimal = False
 
         self.__generate_model()

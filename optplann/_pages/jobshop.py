@@ -66,14 +66,12 @@ def jobshop_page(session):
                 jobshop = JobShop(tempos, rotas, start_time, TIME_UNITS[time_unit])
                 jobshop.solve()
 
-                show_solver_log(jobshop.is_optimal, jobshop.solver_time)
+                show_solver_log(jobshop.is_optimal, jobshop.solver_time, jobshop.objective)
 
                 df_out = jobshop.get_output_data()
                 st.plotly_chart(get_gantt(df_out))
 
                 AgGrid(df_out, height=250, enable_enterprise_modules=False)
-
-                st.info(f"Função objetivo {jobshop.objective}")
 
                 col1, col2, col3, col4, col5 = st.columns(5)
                 with col3:

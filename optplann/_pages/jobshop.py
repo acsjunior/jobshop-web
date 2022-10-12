@@ -7,11 +7,9 @@ from optplann._pages.utils import (generate_input_grid, get_array, get_gantt,
                                    get_input_df, get_title,
                                    show_btn_download_results, show_solver_log,
                                    validate_input_grid)
+from optplann.config.params import (JOB_COL, MACHINE_PREFIX, STAGE_PREFIX,
+                                    TIME_UNITS)
 from optplann.optim.jobshop import JobShop
-
-JOB_COL = "Tarefa"
-MACHINE_PREFIX = "Máquina"
-STAGE_PREFIX = "Fase"
 
 
 def jobshop_page(session):
@@ -31,7 +29,7 @@ def jobshop_page(session):
         with col4:
             hr_start = st.time_input("Horário de início")
         with col5:
-            time_unit = st.selectbox("Unidade de tempo", ("Minuto", "Hora", "Dia"))
+            time_unit = st.selectbox("Unidade de tempo", tuple(TIME_UNITS.keys()))
 
         st.subheader("Tempos de processamento")
         df_tp = get_input_df(
@@ -65,7 +63,7 @@ def jobshop_page(session):
                 tempos = get_array(df_tp, JOB_COL)
                 rotas = get_array(df_rp, JOB_COL)
                 start_time = pd.to_datetime(f"{dt_start} {hr_start}")
-                jobshop = JobShop(tempos, rotas, start_time)
+                jobshop = JobShop(tempos, rotas, start_time, TIME_UNITS[time_unit])
                 jobshop.solve()
 
                 show_solver_log(jobshop.is_optimal, jobshop.solver_time)

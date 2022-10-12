@@ -8,13 +8,21 @@ class JobShop:
     tempos: np.array
     rotas: np.array
     start_time: pd.Timestamp
+    time_unit: str
     solver_time: float
     is_optimal: bool
 
-    def __init__(self, tempos: np.array, rotas: np.array, start_time=pd.Timestamp):
+    def __init__(
+        self,
+        tempos: np.array,
+        rotas: np.array,
+        start_time: pd.Timestamp,
+        time_unit: str,
+    ):
         self.tempos = tempos
         self.rotas = rotas
         self.start_time = start_time
+        self.time_unit = time_unit
         self.solver_time = 0.0
         self.is_optimal = False
 
@@ -95,11 +103,13 @@ class JobShop:
         jobs = [str(k[0]) for k in keys]
 
         end_jobs = [v() for v in self.model.x.values()]
-        end_jobs = pd.to_datetime(self.start_time) + pd.to_timedelta(end_jobs, unit="m")
+        end_jobs = pd.to_datetime(self.start_time) + pd.to_timedelta(
+            end_jobs, unit=self.time_unit
+        )
 
         durations = [float(self.model.t[k[0], k[1]]) for k in keys]
 
-        start_jobs = end_jobs - pd.to_timedelta(durations, unit="m")
+        start_jobs = end_jobs - pd.to_timedelta(durations, unit=self.time_unit)
 
         df_out = pd.DataFrame(
             {

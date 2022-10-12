@@ -3,11 +3,11 @@ import pandas as pd
 import streamlit as st
 from st_aggrid import AgGrid
 
-from optplan._pages.utils import (generate_input_grid, get_array, get_gantt,
-                                  get_input_df, get_title,
-                                  show_btn_download_results, show_solver_log,
-                                  validate_input_grid)
-from optplan.optim.jobshop import JobShop
+from optplann._pages.utils import (generate_input_grid, get_array, get_gantt,
+                                   get_input_df, get_title,
+                                   show_btn_download_results, show_solver_log,
+                                   validate_input_grid)
+from optplann.optim.jobshop import JobShop
 
 JOB_COL = "Tarefa"
 MACHINE_PREFIX = "Máquina"

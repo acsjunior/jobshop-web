@@ -1,16 +1,24 @@
 import streamlit as st
+from PIL import Image
 from streamlit_option_menu import option_menu
 
 from optplann._pages.about import about_page
 from optplann._pages.jobshop import jobshop_page
 from optplann._pages.jobshop_formulation import jobshop_formulation_page
 from optplann.config.params import PAGES
+from optplann.config.paths import PATH_ROOT
 from optplann.utils import show_page, update_session
 
-st.set_page_config(layout="wide")
+st.set_page_config(
+    layout="wide",
+    page_title="OptPlann",
+    page_icon=Image.open(PATH_ROOT / "favicon.ico"),
+)
+
 
 page_ids = list(PAGES.keys())
 page_titles = [PAGES[key] for key in page_ids]
+
 with st.sidebar:
     selected_item = option_menu(
         "OptPlann",

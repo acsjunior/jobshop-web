@@ -3,9 +3,8 @@ import pandas as pd
 import streamlit as st
 from st_aggrid import AgGrid
 
-from optplan._pages.utils import (generate_input_grid, get_array,
-                                  get_formulation, get_gantt, get_input_df,
-                                  get_key, get_title,
+from optplan._pages.utils import (generate_input_grid, get_array, get_gantt,
+                                  get_input_df, get_title,
                                   show_btn_download_results, show_solver_log,
                                   validate_input_grid)
 from optplan.optim.jobshop import JobShop
@@ -17,7 +16,6 @@ STAGE_PREFIX = "Fase"
 
 def jobshop_page(session):
     st.header(get_title(session))
-    # st.markdown(get_formulation(session))
 
     with st.container():
         col1, col2, col3, col4, col5 = st.columns(5)

@@ -17,8 +17,8 @@ def get_key(session, prefix):
 
 
 def get_formulation(session):
-    with open(PATH_FORMULATIONS / f"{session['page']}.md") as f:
-        f = open(PATH_FORMULATIONS / f"{session['page']}.md")
+    prefix = session["page"].split("_")[0]
+    with open(PATH_FORMULATIONS / f"{prefix}.md") as f:
         return f.read()
 
 

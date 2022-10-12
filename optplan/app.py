@@ -3,6 +3,7 @@ from streamlit_option_menu import option_menu
 
 from optplan._pages.about import about_page
 from optplan._pages.jobshop import jobshop_page
+from optplan._pages.jobshop_formulation import jobshop_formulation_page
 from optplan.config.params import PAGES
 from optplan.utils import show_page, update_session
 
@@ -14,7 +15,7 @@ with st.sidebar:
     selected_item = option_menu(
         "OptPlan",
         page_titles,
-        icons=["house", "calculator"],
+        icons=["house", "calculator", "journal-x"],
         menu_icon="cast",
         default_index=0,
     )
@@ -26,6 +27,7 @@ update_session(session, page_id)
 pages = {
     page_ids[0]: lambda x: about_page(x),
     page_ids[1]: lambda x: jobshop_page(x),
+    page_ids[2]: lambda x: jobshop_formulation_page(x),
 }
 
 show_page(page_id, pages, session)

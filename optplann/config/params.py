@@ -1,5 +1,5 @@
 PAGES = {
     "about": "Sobre",
     "jobshop": "Job Shop",
-    "jobshop_formulation": "Modelo matemático",
+    "jobshop_formulation": "Formulação matemática",
 }

@@ -35,6 +35,24 @@ def get_array(df, col_to_drop):
     return np.array(df.drop(columns=col_to_drop))
 
 
+def show_btn_download_csv(df: pd.DataFrame, label: str, filename: str):
+    csv = df.to_csv(index=False).encode("utf-8")
+
+    st.download_button(
+        label=label,
+        data=csv,
+        file_name=filename,
+        mime="text/csv",
+    )
+
+
+def convert_uploaded_df_to_grid(df: pd.DataFrame, first_col, prefix) -> pd.DataFrame:
+    df.columns = [f"{prefix} {str(j+1)}" for j in range(len(df.columns))]
+    df[first_col] = [i + 1 for i in range(len(df.index))]
+    sorted_columns = [first_col] + [col for col in df.columns if col != first_col]
+    return df[sorted_columns]
+
+
 def validate_input_grid(df: pd.DataFrame, first_col: str):
     log_msgs = []
     is_valid = True

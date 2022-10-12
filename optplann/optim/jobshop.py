@@ -43,7 +43,7 @@ class JobShop:
 
         # Função objetivo:
         def obj_rule(model):
-            return sum(model.x[i, model.r[i, n]] for i in model.I)
+            return sum(model.x[i, int(model.r[i, n])] for i in model.I)
 
         model.obj = pyo.Objective(rule=obj_rule, sense=pyo.minimize)
 

@@ -73,7 +73,7 @@ def jobshop_page(session):
                 df_out = jobshop.get_output_data()
                 st.plotly_chart(get_gantt(df_out))
 
-                AgGrid(df_out, height=250)
+                AgGrid(df_out, height=250, enable_enterprise_modules=False)
 
                 st.info(f"Função objetivo {jobshop.objective}")
 

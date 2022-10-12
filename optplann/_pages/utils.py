@@ -73,7 +73,7 @@ def generate_input_grid(df: pd.DataFrame):
     gb.configure_column(first_col, editable=False, width=80)
 
     go = gb.build()
-    return AgGrid(df, gridOptions=go)
+    return AgGrid(df, gridOptions=go, enable_enterprise_modules=False)
 
 
 def show_solver_log(is_optimal: bool, solver_time: float):

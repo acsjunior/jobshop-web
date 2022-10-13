@@ -5,8 +5,8 @@ import pyomo.environ as pyo
 
 class JobShop:
     model: pyo.ConcreteModel
-    tempos: np.array
-    rotas: np.array
+    times: np.array
+    routes: np.array
     start_time: pd.Timestamp
     time_unit: str
     solver_time: float
@@ -15,13 +15,13 @@ class JobShop:
 
     def __init__(
         self,
-        tempos: np.array,
-        rotas: np.array,
+        times: np.array,
+        routes: np.array,
         start_time: pd.Timestamp,
         time_unit: str,
     ):
-        self.tempos = tempos
-        self.rotas = rotas
+        self.times = times
+        self.routes = routes
         self.start_time = start_time
         self.time_unit = time_unit
         self.solver_time = 0.0
@@ -31,66 +31,52 @@ class JobShop:
         self.__generate_model()
 
     def __generate_model(self) -> pyo.ConcreteModel:
-        m = len(self.tempos)
-        n = len(self.tempos[0])
-        M = np.max(np.cumsum(self.tempos))
+        m = len(self.times)
+        n = len(self.times[0])
+        V = np.max(np.cumsum(self.times))
 
         model = pyo.ConcreteModel()
 
         # Conjuntos e parâmetros:
         model.I = pyo.RangeSet(m)
         model.J = pyo.RangeSet(n)
-        model.t = pyo.Param(
-            model.I, model.J, initialize=lambda model, i, j: self.tempos[i - 1][j - 1]
-        )
-        model.r = pyo.Param(
-            model.I, model.J, initialize=lambda model, i, j: self.rotas[i - 1][j - 1]
-        )
+        model.p = pyo.Param(model.I, model.J, initialize=lambda model, i, j: self.times[i-1][j-1])
+        model.s = pyo.Param(model.I, model.J, initialize=lambda model, i, j: self.routes[i-1][j-1])
 
         # Variáveis de decisão:
+        model.Cmax = pyo.Var()
         model.x = pyo.Var(model.I, model.J, within=pyo.NonNegativeReals)
-        model.y = pyo.Var(model.I, model.I, model.J, within=pyo.Binary)
+        model.z = pyo.Var(model.J, model.I, model.I, within=pyo.Binary)
 
         # Função objetivo:
         def obj_rule(model):
-            return sum(model.x[i, int(model.r[i, n])] for i in model.I)
-
+            return model.Cmax
         model.obj = pyo.Objective(rule=obj_rule, sense=pyo.minimize)
 
-        def restr1_rule(model, i):
-            r_i1 = model.r[i, 1]
-            return model.x[i, r_i1] >= model.t[i, r_i1]
+        def constr1_rule(model, i, j):
+            s_ij1 = model.s[i, j-1]
+            s_ij = model.s[i, j]
+            return model.x[i, s_ij] >= model.x[i, s_ij1] + model.p[i, s_ij1]
+        model.constr1 = pyo.Constraint(model.I, [j for j in model.J if j >= 2], rule=constr1_rule)
 
-        model.restr_1 = pyo.Constraint(model.I, rule=restr1_rule)
-
-        def restr2_rule(model, i, j):
-            r_ij = model.r[i, j]
-            r_ij1 = model.r[i, j + 1]
-            return model.x[i, r_ij1] >= model.x[i, r_ij] + model.t[i, r_ij1]
-
-        model.restr2 = pyo.Constraint(
-            model.I, [j for j in model.J if j < n], rule=restr2_rule
-        )
-
-        def restr3_rule(model, i, k, j):
+        def constr2_rule(model, j, i, k):
             expr = pyo.Constraint.Skip
-            if i != k:
-                expr = model.x[k, j] >= model.x[i, j] + model.t[k, j] - M * (
-                    1 - model.y[i, k, j]
-                )
+            if i < k:
+                expr = model.x[i,j] >= model.x[k,j] + model.p[k,j] - V*model.z[j,i,k]
             return expr
+        model.constr2 = pyo.Constraint(model.J, model.I, model.I, rule=constr2_rule)
 
-        model.restr3 = pyo.Constraint(model.I, model.I, model.J, rule=restr3_rule)
-
-        def restr4_rule(model, i, k, j):
+        def constr3_rule(model, j, i, k):
             expr = pyo.Constraint.Skip
-            if i != k:
-                expr = model.x[i, j] >= model.x[k, j] + model.t[i, j] - M * (
-                    model.y[i, k, j]
-                )
+            if i < k:
+                expr = model.x[k,j] >= model.x[i,j] + model.p[i,j] - V*(1 - model.z[j,i,k])
             return expr
+        model.constr3 = pyo.Constraint(model.J, model.I, model.I, rule=constr3_rule)
 
-        model.restr4 = pyo.Constraint(model.I, model.I, model.J, rule=restr4_rule)
+        def constr4_rule(model, i):
+            s_in = model.s[i, n]
+            return model.Cmax >= model.x[i, s_in] + model.p[i, s_in]
+        model.constr4 = pyo.Constraint(model.I, rule=constr4_rule)
 
         self.model = model
 
@@ -104,14 +90,14 @@ class JobShop:
         machines = [str(k[1]) for k in keys]
         jobs = [str(k[0]) for k in keys]
 
-        end_jobs = [v() for v in self.model.x.values()]
-        end_jobs = pd.to_datetime(self.start_time) + pd.to_timedelta(
-            end_jobs, unit=self.time_unit
+        start_jobs = [v() for v in self.model.x.values()]
+        start_jobs = pd.to_datetime(self.start_time) + pd.to_timedelta(
+            start_jobs, unit=self.time_unit
         )
 
-        durations = [float(self.model.t[k[0], k[1]]) for k in keys]
+        durations = [float(self.model.p[k[0], k[1]]) for k in keys]
 
-        start_jobs = end_jobs - pd.to_timedelta(durations, unit=self.time_unit)
+        end_jobs = start_jobs + pd.to_timedelta(durations, unit=self.time_unit)
 
         df_out = pd.DataFrame(
             {

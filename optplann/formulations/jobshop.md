@@ -4,16 +4,20 @@ $I \colon \text{conjunto de tarefas,} \; I = \{1,2,\ldots,m\},$
 
 $J \colon \text{conjunto de máquinas,} \; J = \{1,2,\ldots,n\},$
 
-$t_{ij} \colon \text{tempo de processamento da tarefa} \; i \in I \; \text{na máquina} \; j \in J,$
+$p_{ij} \colon \text{tempo de processamento da tarefa} \; i \in I \; \text{na máquina} \; j \in J,$
 
-$r_{ij} \colon \text{rota de processamento da tarefa} \; i \in I \; \text{na máquina} \; j \in J.$
+$\sigma_{ij} \colon \text{roteiro de processamento da tarefa} \; i \in I \; \text{na máquina} \; j \in J,$
+
+$V \colon \text{valor grande o suficiente para garantir as restrições disjuntivas}, V = \sum\limits_{i=1}^m \sum\limits_{j=1}^n p_{ij}.$
 
 #### Variáveis de decisão
 
-$x_{ij} \colon \text{instante de término da tarefa} \; i \in I \; \text{na máquina} \; j \in ,$
+$C_{\text{max}} \colon \text{makespan},$
+
+$x_{ij} \colon \text{instante de início da tarefa} \; i \in I \; \text{na máquina} \; j \in J,$
 
 $
-    y_{ikj} \colon
+    z_{jik} \colon
     \begin{cases}
     1; & \text{se a tarefa} \; i \in I \; \text{precede a tarefa} \; k \in I \; \text{na máquina} \; j \in J \\
     0; & \text{caso contrário.}
@@ -22,17 +26,16 @@ $
 
 #### Modelo matemático exato
 
-$\text{Min } \sum\limits_{i=1}^m x_{i{r_{in}}}.$
+$\text{Min } C_{\text{max}}.$
 
 Sujeito a
 
-$x_{ir_{i1}} \geq t_{ir_{i1}} \; \; \forall i \in I,$
+$x_{i,\sigma_{ij}} \geq x_{i,\sigma_{ij-1}} + p_{i,\sigma_{ij-1}} \; \; \forall i \in I, \; j \in J \mid j \geq 2,$
 
-$x_{ir_{i{j+1}}} \geq x_{ir_{ij}} + t_{ir_{i{j+1}}} \; \; \forall i \in I, \; j \in J \mid j \lt n,$
+$x_{ij} \geq x_{kj} + p_{kj} - Vz_{jik}  \;\; \forall j \in J, \; i,k \in I \mid i \lt k,$
 
-$x_{kj} \geq x_{ij} + t_{kj} - M(1 - y_{ikj}) \; \; \forall i \in I, \; k \in I, \; j \in J \mid i \neq k,$
+$x_{kj} \geq x_{ij} + p_{ij} - V(1 - z_{jik})  \;\; \forall j \in J, \; i,k \in I \mid i \lt k,$
 
-$x_{ij} \geq x_{kj} + t_{ij} - My_{ikj} \; \; \forall i \in I, \; k \in I, \; j \in J \mid i \neq k,$
+$C_{\text{max}} \geq x_{i,\sigma_{in}} + p_{i,\sigma_{in}}$
 
-$x_{ij} \geq 0, \; y_{ikj} \in \{0,1\}.$
-
+$x_{ij} \geq 0, \; z_{ikj} \in \{0,1\}.$

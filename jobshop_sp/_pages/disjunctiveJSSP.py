@@ -4,9 +4,9 @@ import streamlit as st
 from st_aggrid import AgGrid
 
 from jobshop_sp._pages.utils import (convert_uploaded_df_to_grid,
-                                     generate_input_grid, get_array, get_gantt,
-                                     get_input_df, get_title,
-                                     show_btn_download_csv,
+                                     generate_input_grid, get_array,
+                                     get_formulation, get_gantt, get_input_df,
+                                     get_title, show_btn_download_csv,
                                      show_btn_download_results,
                                      show_solver_log, validate_input_grid)
 from jobshop_sp.config.params import (JOB_COL, MACHINE_PREFIX, STAGE_PREFIX,
@@ -30,6 +30,8 @@ def get_template_rotas() -> pd.DataFrame:
 
 def disjunctiveJSSP_page(session):
     st.header(get_title(session))
+    st.markdown(get_formulation(session))
+    st.markdown("---")
 
     with st.container():
         col1, col2, col3, col4, col5 = st.columns(5)

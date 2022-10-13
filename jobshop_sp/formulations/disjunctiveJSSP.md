@@ -36,6 +36,6 @@ $x_{ij} \geq x_{kj} + p_{kj} - Vz_{jik}  \;\; \forall j \in J, \; i,k \in I \mid
 
 $x_{kj} \geq x_{ij} + p_{ij} - V(1 - z_{jik})  \;\; \forall j \in J, \; i,k \in I \mid i \lt k,$
 
-$C_{\text{max}} \geq x_{i,\sigma_{in}} + p_{i,\sigma_{in}}$
+$C_{\text{max}} \geq x_{i,\sigma_{in}} + p_{i,\sigma_{in}},$
 
 $x_{ij} \geq 0, \; z_{ikj} \in \{0,1\}.$

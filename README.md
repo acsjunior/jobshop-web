@@ -1,8 +1,8 @@
-# OPTPLANN
+# Job Shop
 
 ## Orientações para deploy no Heroku
 
-1 - Criar os arquivos [setup.sh](https://github.com/juniorssz/optplann/blob/main/setup.sh), [Procfile](https://github.com/juniorssz/optplann/blob/main/Procfile) e [Aptfile](https://github.com/juniorssz/optplann/blob/main/Aptfile)
+1 - Criar os arquivos [setup.sh](https://github.com/juniorssz/jobshop/blob/main/setup.sh), [Procfile](https://github.com/juniorssz/jobshop/blob/main/Procfile) e [Aptfile](https://github.com/juniorssz/jobshop/blob/main/Aptfile)
 
 2 - No diretório do projeto, executar via Heroku CLI: `heroku create <nome da aplicação>`
 

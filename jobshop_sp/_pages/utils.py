@@ -4,8 +4,8 @@ import plotly.express as px
 import streamlit as st
 from st_aggrid import AgGrid, GridOptionsBuilder
 
-from optplann.config.params import PAGES
-from optplann.config.paths import PATH_FORMULATIONS
+from jobshop_sp.config.params import PAGES
+from jobshop_sp.config.paths import PATH_FORMULATIONS
 
 
 def get_title(session):

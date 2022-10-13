@@ -2,16 +2,17 @@ import streamlit as st
 from PIL import Image
 from streamlit_option_menu import option_menu
 
-from optplann._pages.about import about_page
-from optplann._pages.jobshop import jobshop_page
-from optplann._pages.jobshop_formulation import jobshop_formulation_page
-from optplann.config.params import PAGES
-from optplann.config.paths import PATH_ROOT
-from optplann.utils import show_page, update_session
+from jobshop_sp._pages.about import about_page
+from jobshop_sp._pages.disjunctiveJSSP import disjunctiveJSSP_page
+from jobshop_sp._pages.disjunctiveJSSP_formulation import \
+    disjunctiveJSSP_formulation_page
+from jobshop_sp.config.params import PAGES
+from jobshop_sp.config.paths import PATH_ROOT
+from jobshop_sp.utils import show_page, update_session
 
 st.set_page_config(
     layout="wide",
-    page_title="OptPlann",
+    page_title="Job Shop Solver",
     page_icon=Image.open(PATH_ROOT / "favicon.ico"),
 )
 
@@ -21,7 +22,7 @@ page_titles = [PAGES[key] for key in page_ids]
 
 with st.sidebar:
     selected_item = option_menu(
-        "OptPlann",
+        "Job Shop Solver",
         page_titles,
         icons=["house", "calculator", "journal-x"],
         menu_icon="cast",
@@ -34,8 +35,8 @@ update_session(session, page_id)
 
 pages = {
     page_ids[0]: lambda x: about_page(x),
-    page_ids[1]: lambda x: jobshop_page(x),
-    page_ids[2]: lambda x: jobshop_formulation_page(x),
+    page_ids[1]: lambda x: disjunctiveJSSP_page(x),
+    page_ids[2]: lambda x: disjunctiveJSSP_formulation_page(x),
 }
 
 show_page(page_id, pages, session)

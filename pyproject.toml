@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "optplann"
+name = "jobshop-sp"
 version = "0.1.0"
 description = ""
 authors = ["Antonio Júnior <juniorssz@gmail.com>"]

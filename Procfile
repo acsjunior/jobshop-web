@@ -1,1 +1,1 @@
-web: sh setup.sh && streamlit run optplann/app.py
+web: sh setup.sh && streamlit run jobshop_sp/app.py

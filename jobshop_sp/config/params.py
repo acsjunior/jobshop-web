@@ -1,7 +1,7 @@
 PAGES = {
     "about": "Sobre",
-    "jobshop": "Job Shop",
-    "jobshop_formulation": "Formulação matemática",
+    "disjunctiveJSSP": "Modelo Disjuntivo",
+    "disjunctiveJSSP_formulation": "Formulação matemática",
 }
 
 TIME_UNITS = {"Minuto": "m", "Hora": "h", "Dia": "D"}

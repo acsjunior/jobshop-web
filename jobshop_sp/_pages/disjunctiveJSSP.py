@@ -1,20 +1,17 @@
-import base64
-from zipfile import ZipFile
-
 import numpy as np
 import pandas as pd
 import streamlit as st
 from st_aggrid import AgGrid
 
-from optplann._pages.utils import (convert_uploaded_df_to_grid,
-                                   generate_input_grid, get_array, get_gantt,
-                                   get_input_df, get_title,
-                                   show_btn_download_csv,
-                                   show_btn_download_results, show_solver_log,
-                                   validate_input_grid)
-from optplann.config.params import (JOB_COL, MACHINE_PREFIX, STAGE_PREFIX,
-                                    TIME_UNITS)
-from optplann.optim.jobshop import JobShop
+from jobshop_sp._pages.utils import (convert_uploaded_df_to_grid,
+                                     generate_input_grid, get_array, get_gantt,
+                                     get_input_df, get_title,
+                                     show_btn_download_csv,
+                                     show_btn_download_results,
+                                     show_solver_log, validate_input_grid)
+from jobshop_sp.config.params import (JOB_COL, MACHINE_PREFIX, STAGE_PREFIX,
+                                      TIME_UNITS)
+from jobshop_sp.optim.disjunctiveJSSP import DisjunctiveJSSP
 
 
 def get_template_tempos() -> pd.DataFrame:
@@ -31,7 +28,7 @@ def get_template_rotas() -> pd.DataFrame:
     return df
 
 
-def jobshop_page(session):
+def disjunctiveJSSP_page(session):
     st.header(get_title(session))
 
     with st.container():
@@ -44,7 +41,6 @@ def jobshop_page(session):
             )
         with col3:
             dt_start = st.date_input("Data de início")
-            # btn_update_grids = st.button("Atualizar tabelas")
         with col4:
             hr_start = st.time_input("Horário de início")
         with col5:
@@ -128,14 +124,14 @@ def jobshop_page(session):
                 tempos = get_array(df_tp, JOB_COL)
                 rotas = get_array(df_rp, JOB_COL)
                 start_time = pd.to_datetime(f"{dt_start} {hr_start}")
-                jobshop = JobShop(tempos, rotas, start_time, TIME_UNITS[time_unit])
-                jobshop.solve()
-
-                show_solver_log(
-                    jobshop.is_optimal, jobshop.solver_time, jobshop.objective
+                model = DisjunctiveJSSP(
+                    tempos, rotas, start_time, TIME_UNITS[time_unit]
                 )
+                model.solve()
 
-                df_out = jobshop.get_output_data()
+                show_solver_log(model.is_optimal, model.solver_time, model.objective)
+
+                df_out = model.get_output_data()
                 st.plotly_chart(get_gantt(df_out))
 
                 AgGrid(df_out, height=250, enable_enterprise_modules=False)

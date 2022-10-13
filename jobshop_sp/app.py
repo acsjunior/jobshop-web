@@ -10,7 +10,7 @@ from jobshop_sp.utils import show_page, update_session
 
 st.set_page_config(
     layout="wide",
-    page_title="Job Shop Solver",
+    page_title="JSSP",
     page_icon=Image.open(PATH_ROOT / "favicon.ico"),
 )
 
@@ -20,7 +20,7 @@ page_titles = [PAGES[key] for key in page_ids]
 
 with st.sidebar:
     selected_item = option_menu(
-        "Job Shop Solver",
+        "Job Shop Scheduling Problem",
         page_titles,
         icons=["house", "calculator"],
         menu_icon="cast",

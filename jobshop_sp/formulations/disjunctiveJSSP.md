@@ -1,25 +1,25 @@
 #### Conjuntos e parâmetros
 
-$I \colon \text{conjunto de tarefas,} \; I = \{1,2,\ldots,m\},$
+$J \colon \text{conjunto de trabalhos,} \; J = \{1,2,\ldots,n\},$
 
-$J \colon \text{conjunto de máquinas,} \; J = \{1,2,\ldots,n\},$
+$M \colon \text{conjunto de máquinas,} \; M = \{1,2,\ldots,m\},$
 
-$p_{ij} \colon \text{tempo de processamento da tarefa} \; i \in I \; \text{na máquina} \; j \in J,$
+$p_{ji} \colon \text{tempo de processamento do trabalho} \; j \in J \; \text{na máquina} \; i \in M,$
 
-$\sigma_{ij} \colon \text{roteiro de processamento da tarefa} \; i \in I \; \text{na máquina} \; j \in J,$
+$\sigma_{ji} \colon \text{roteiro de processamento do trabalho} \; j \in J \; \text{na máquina} \; i \in M,$
 
-$V \colon \text{valor grande o suficiente para garantir as restrições disjuntivas}, V = \sum\limits_{i=1}^m \sum\limits_{j=1}^n p_{ij}.$
+$V \colon \text{valor grande o suficiente para garantir as restrições disjuntivas}, V = \sum\limits_{j=1}^n \sum\limits_{i=1}^m p_{ji}.$
 
 #### Variáveis de decisão
 
 $C_{\text{max}} \colon \text{makespan},$
 
-$x_{ij} \colon \text{instante de início da tarefa} \; i \in I \; \text{na máquina} \; j \in J,$
+$x_{ji} \colon \text{instante de início do trabalho} \; j \in J \; \text{na máquina} \; i \in M,$
 
 $
-    z_{jik} \colon
+    z_{ijk} \colon
     \begin{cases}
-    1; & \text{se a tarefa} \; i \in I \; \text{precede a tarefa} \; k \in I \; \text{na máquina} \; j \in J \\
+    1; & \text{se o trabalho} \; j \in J \; \text{precede o trabalho} \; k \in J \; \text{na máquina} \; i \in M \\
     0; & \text{caso contrário.}
     \end{cases}
 $
@@ -30,12 +30,12 @@ $\text{Min } C_{\text{max}}.$
 
 Sujeito a
 
-$x_{i,\sigma_{ij}} \geq x_{i,\sigma_{ij-1}} + p_{i,\sigma_{ij-1}} \; \; \forall i \in I, \; j \in J \mid j \geq 2,$
+$x_{j,\sigma_{ji}} \geq x_{j,\sigma_{ji-1}} + p_{j,\sigma_{ji-1}} \; \; \forall j \in J, \; i \in M \mid i \geq 2,$
 
-$x_{ij} \geq x_{kj} + p_{kj} - Vz_{jik}  \;\; \forall j \in J, \; i,k \in I \mid i \lt k,$
+$x_{ji} \geq x_{ki} + p_{ki} - V \cdot z_{ijk}  \;\; \forall i \in M, \; j,k \in J \mid j \lt k,$
 
-$x_{kj} \geq x_{ij} + p_{ij} - V(1 - z_{jik})  \;\; \forall j \in J, \; i,k \in I \mid i \lt k,$
+$x_{ki} \geq x_{ji} + p_{ji} - V(1 - z_{ijk})  \;\; \forall i \in M, \; j,k \in J \mid j \lt k,$
 
-$C_{\text{max}} \geq x_{i,\sigma_{in}} + p_{i,\sigma_{in}},$
+$C_{\text{max}} \geq x_{j,\sigma_{jm}} + p_{j,\sigma_{jm}},$
 
-$x_{ij} \geq 0, \; z_{ikj} \in \{0,1\}.$
+$x_{ji} \geq 0, \; z_{ijk} \in \{0,1\}.$

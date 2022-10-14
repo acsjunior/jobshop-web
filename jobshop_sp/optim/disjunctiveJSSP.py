@@ -31,26 +31,26 @@ class DisjunctiveJSSP:
         self.__generate_model()
 
     def __generate_model(self) -> pyo.ConcreteModel:
-        m = len(self.times)
-        n = len(self.times[0])
-        V = np.max(np.cumsum(self.times))
+        m = len(self.times[0])
+        n = len(self.times)
+        V = np.sum(np.sum(self.times))
 
         model = pyo.ConcreteModel()
 
         # Conjuntos e parâmetros:
-        model.I = pyo.RangeSet(m)
         model.J = pyo.RangeSet(n)
+        model.M = pyo.RangeSet(m)
         model.p = pyo.Param(
-            model.I, model.J, initialize=lambda model, i, j: self.times[i - 1][j - 1]
+            model.J, model.M, initialize=lambda model, j, i: self.times[j - 1][i - 1]
         )
         model.s = pyo.Param(
-            model.I, model.J, initialize=lambda model, i, j: self.routes[i - 1][j - 1]
+            model.J, model.M, initialize=lambda model, j, i: self.routes[j - 1][i - 1]
         )
 
         # Variáveis de decisão:
         model.Cmax = pyo.Var()
-        model.x = pyo.Var(model.I, model.J, within=pyo.NonNegativeReals)
-        model.z = pyo.Var(model.J, model.I, model.I, within=pyo.Binary)
+        model.x = pyo.Var(model.J, model.M, within=pyo.NonNegativeReals)
+        model.z = pyo.Var(model.M, model.J, model.J, within=pyo.Binary)
 
         # Função objetivo:
         def obj_rule(model):
@@ -58,41 +58,41 @@ class DisjunctiveJSSP:
 
         model.obj = pyo.Objective(rule=obj_rule, sense=pyo.minimize)
 
-        def constr1_rule(model, i, j):
-            s_ij1 = model.s[i, j - 1]
-            s_ij = model.s[i, j]
-            return model.x[i, s_ij] >= model.x[i, s_ij1] + model.p[i, s_ij1]
+        def constr1_rule(model, j, i):
+            s_ji1 = model.s[j, i - 1]
+            s_ji = model.s[j, i]
+            return model.x[j, s_ji] >= model.x[j, s_ji1] + model.p[j, s_ji1]
 
         model.constr1 = pyo.Constraint(
-            model.I, [j for j in model.J if j >= 2], rule=constr1_rule
+            model.J, [i for i in model.M if i >= 2], rule=constr1_rule
         )
 
-        def constr2_rule(model, j, i, k):
+        def constr2_rule(model, i, j, k):
             expr = pyo.Constraint.Skip
-            if i < k:
+            if j < k:
                 expr = (
-                    model.x[i, j]
-                    >= model.x[k, j] + model.p[k, j] - V * model.z[j, i, k]
+                    model.x[j, i]
+                    >= model.x[k, i] + model.p[k, i] - V * model.z[i, j, k]
                 )
             return expr
 
-        model.constr2 = pyo.Constraint(model.J, model.I, model.I, rule=constr2_rule)
+        model.constr2 = pyo.Constraint(model.M, model.J, model.J, rule=constr2_rule)
 
-        def constr3_rule(model, j, i, k):
+        def constr3_rule(model, i, j, k):
             expr = pyo.Constraint.Skip
-            if i < k:
-                expr = model.x[k, j] >= model.x[i, j] + model.p[i, j] - V * (
-                    1 - model.z[j, i, k]
+            if j < k:
+                expr = model.x[k, i] >= model.x[j, i] + model.p[j, i] - V * (
+                    1 - model.z[i, j, k]
                 )
             return expr
 
-        model.constr3 = pyo.Constraint(model.J, model.I, model.I, rule=constr3_rule)
+        model.constr3 = pyo.Constraint(model.M, model.J, model.J, rule=constr3_rule)
 
-        def constr4_rule(model, i):
-            s_in = model.s[i, n]
-            return model.Cmax >= model.x[i, s_in] + model.p[i, s_in]
+        def constr4_rule(model, j):
+            s_jm = model.s[j, m]
+            return model.Cmax >= model.x[j, s_jm] + model.p[j, s_jm]
 
-        model.constr4 = pyo.Constraint(model.I, rule=constr4_rule)
+        model.constr4 = pyo.Constraint(model.J, rule=constr4_rule)
 
         self.model = model
 

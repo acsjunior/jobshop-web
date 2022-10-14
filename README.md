@@ -17,3 +17,11 @@
     - https://elements.heroku.com/buildpacks/heroku/heroku-buildpack-apt
 
 4 - Executar `git push heroku main`
+
+<hr>
+
+## Orientações para deploy no Streamlit
+
+1 - Criar o arquivo [packages.txt](https://github.com/juniorssz/jobshop-sp/blob/streamlit/packages.txt)
+
+2 - Acessar https://share.streamlit.io e seguir as orientações da plataforma

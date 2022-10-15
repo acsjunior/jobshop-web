@@ -2,35 +2,11 @@ import numpy as np
 import pandas as pd
 import pyomo.environ as pyo
 
+from jobshop_sp.optim.model_base import ModelBase
 
-class TimeIndexedJSSP:
-    model: pyo.ConcreteModel
-    times: np.array
-    routes: np.array
-    start_time: pd.Timestamp
-    time_unit: str
-    solver_time: float
-    objective: float
-    is_optimal: bool
 
-    def __init__(
-        self,
-        times: np.array,
-        routes: np.array,
-        start_time: pd.Timestamp,
-        time_unit: str,
-    ):
-        self.times = times
-        self.routes = routes
-        self.start_time = start_time
-        self.time_unit = time_unit
-        self.solver_time = 0.0
-        self.objective = 0.0
-        self.is_optimal = False
-
-        self.__generate_model()
-
-    def __generate_model(self) -> pyo.ConcreteModel:
+class TimeIndexedJSSP(ModelBase):
+    def generate_model(self) -> pyo.ConcreteModel:
         m = len(self.times[0])
         n = len(self.times)
         S = np.sum(np.sum(self.times))
@@ -96,10 +72,6 @@ class TimeIndexedJSSP:
 
         self.model = model
 
-    def solve(self, solver="glpk"):
-        result = pyo.SolverFactory(solver).solve(self.model)
-        self.__get_solver_data(result)
-
     def get_output_data(self):
         keys = list(self.model.x.get_values().keys())
 
@@ -136,11 +108,3 @@ class TimeIndexedJSSP:
         del df_out["Duração"]
 
         return df_out
-
-    def __get_solver_data(self, result):
-        self.solver_time = result["Solver"][0]["Time"]
-        self.is_optimal = (
-            result["Solver"][0]["Termination condition"].value == "optimal"
-        )
-        if self.is_optimal:
-            self.objective = result["Problem"][0]["Lower bound"]

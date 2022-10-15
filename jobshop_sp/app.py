@@ -5,6 +5,7 @@ from streamlit_option_menu import option_menu
 from jobshop_sp._pages.about import about_page
 from jobshop_sp._pages.disjunctiveJSSP import disjunctiveJSSP_page
 from jobshop_sp._pages.disjunctiveJSSP2 import disjunctiveJSSP2_page
+from jobshop_sp._pages.timeIndexedJSSP import timeIndexedJSSP_page
 from jobshop_sp.config.params import PAGES
 from jobshop_sp.config.paths import PATH_ROOT
 from jobshop_sp.utils import show_page, update_session
@@ -23,7 +24,7 @@ with st.sidebar:
     selected_item = option_menu(
         "Job Shop Scheduling Problem",
         page_titles,
-        icons=["house", "calculator", "calculator"],
+        icons=["house", "calculator", "calculator", "calculator"],
         menu_icon="cast",
         default_index=0,
     )
@@ -36,6 +37,7 @@ pages = {
     page_ids[0]: lambda x: about_page(x),
     page_ids[1]: lambda x: disjunctiveJSSP_page(x),
     page_ids[2]: lambda x: disjunctiveJSSP2_page(x),
+    page_ids[3]: lambda x: timeIndexedJSSP_page(x),
 }
 
 show_page(page_id, pages, session)

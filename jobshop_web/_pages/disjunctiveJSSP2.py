@@ -3,10 +3,10 @@ import pandas as pd
 import streamlit as st
 from st_aggrid import AgGrid
 
-import jobshop_sp._pages.utils as page
-from jobshop_sp.config.params import (AGGRID_THEME, JOB_COL, MACHINE_PREFIX,
-                                      STAGE_PREFIX, TIME_UNITS)
-from jobshop_sp.optim.disjunctiveJSSP2 import DisjunctiveJSSP2
+import jobshop_web._pages.utils as page
+from jobshop_web.config.params import (AGGRID_THEME, JOB_COL, MACHINE_PREFIX,
+                                       STAGE_PREFIX, TIME_UNITS)
+from jobshop_web.optim.disjunctiveJSSP2 import DisjunctiveJSSP2
 
 MODEL_CLASS = DisjunctiveJSSP2
 

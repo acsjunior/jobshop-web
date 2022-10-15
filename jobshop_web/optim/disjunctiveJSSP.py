@@ -2,10 +2,10 @@ import numpy as np
 import pandas as pd
 import pyomo.environ as pyo
 
-from jobshop_sp.optim.model_base import ModelBase
+from jobshop_web.optim.model_base import ModelBase
 
 
-class DisjunctiveJSSP2(ModelBase):
+class DisjunctiveJSSP(ModelBase):
     def generate_model(self) -> pyo.ConcreteModel:
         m = len(self.times[0])
         n = len(self.times)
@@ -20,14 +20,13 @@ class DisjunctiveJSSP2(ModelBase):
             model.J, model.M, initialize=lambda model, j, i: self.times[j - 1][i - 1]
         )
         model.s = pyo.Param(
-            model.J, model.M, initialize=lambda model, j, i: self.times[j - 1][i - 1]
+            model.J, model.M, initialize=lambda model, j, i: self.routes[j - 1][i - 1]
         )
 
         # Variáveis de decisão:
         model.Cmax = pyo.Var()
         model.x = pyo.Var(model.J, model.M, within=pyo.NonNegativeReals)
         model.z = pyo.Var(model.M, model.J, model.J, within=pyo.Binary)
-        model.q = pyo.Var(model.M, model.J, model.J, within=pyo.NonNegativeReals)
 
         # Função objetivo:
         def obj_rule(model):
@@ -48,10 +47,8 @@ class DisjunctiveJSSP2(ModelBase):
             expr = pyo.Constraint.Skip
             if j < k:
                 expr = (
-                    V * model.z[i, j, k]
-                    + (model.x[j, i] - model.x[k, i])
-                    - model.p[k, i]
-                    == model.q[i, j, k]
+                    model.x[j, i]
+                    >= model.x[k, i] + model.p[k, i] - V * model.z[i, j, k]
                 )
             return expr
 
@@ -60,7 +57,9 @@ class DisjunctiveJSSP2(ModelBase):
         def constr3_rule(model, i, j, k):
             expr = pyo.Constraint.Skip
             if j < k:
-                expr = model.q[i, j, k] <= V - model.p[j, i] - model.p[k, i]
+                expr = model.x[k, i] >= model.x[j, i] + model.p[j, i] - V * (
+                    1 - model.z[i, j, k]
+                )
             return expr
 
         model.constr3 = pyo.Constraint(model.M, model.J, model.J, rule=constr3_rule)

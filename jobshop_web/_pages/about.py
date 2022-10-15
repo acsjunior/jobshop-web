@@ -1,6 +1,6 @@
 import streamlit as st
 
-from jobshop_sp._pages.utils import get_title
+from jobshop_web._pages.utils import get_title
 
 
 def about_page(session):

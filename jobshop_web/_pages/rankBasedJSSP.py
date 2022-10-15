@@ -3,15 +3,15 @@ import pandas as pd
 import streamlit as st
 from st_aggrid import AgGrid
 
-import jobshop_sp._pages.utils as page
-from jobshop_sp.config.params import (AGGRID_THEME, JOB_COL, MACHINE_PREFIX,
-                                      STAGE_PREFIX, TIME_UNITS)
-from jobshop_sp.optim.timeIndexedJSSP import TimeIndexedJSSP
+import jobshop_web._pages.utils as page
+from jobshop_web.config.params import (AGGRID_THEME, JOB_COL, MACHINE_PREFIX,
+                                       STAGE_PREFIX, TIME_UNITS)
+from jobshop_web.optim.rankBasedJSSP import RankBasedJSSP
 
-MODEL_CLASS = TimeIndexedJSSP
+MODEL_CLASS = RankBasedJSSP
 
 
-def timeIndexedJSSP_page(session):
+def rankBasedJSSP_page(session):
     st.header(page.get_title(session))
     st.markdown(page.get_formulation(session))
     st.markdown("---")

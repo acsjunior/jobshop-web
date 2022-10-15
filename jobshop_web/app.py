@@ -2,18 +2,18 @@ import streamlit as st
 from PIL import Image
 from streamlit_option_menu import option_menu
 
-from jobshop_sp._pages.about import about_page
-from jobshop_sp._pages.disjunctiveJSSP import disjunctiveJSSP_page
-from jobshop_sp._pages.disjunctiveJSSP2 import disjunctiveJSSP2_page
-from jobshop_sp._pages.rankBasedJSSP import rankBasedJSSP_page
-from jobshop_sp._pages.timeIndexedJSSP import timeIndexedJSSP_page
-from jobshop_sp.config.params import PAGES
-from jobshop_sp.config.paths import PATH_ROOT
-from jobshop_sp.utils import hide_hamburger_menu, show_page, update_session
+from jobshop_web._pages.about import about_page
+from jobshop_web._pages.disjunctiveJSSP import disjunctiveJSSP_page
+from jobshop_web._pages.disjunctiveJSSP2 import disjunctiveJSSP2_page
+from jobshop_web._pages.rankBasedJSSP import rankBasedJSSP_page
+from jobshop_web._pages.timeIndexedJSSP import timeIndexedJSSP_page
+from jobshop_web.config.params import PAGES
+from jobshop_web.config.paths import PATH_ROOT
+from jobshop_web.utils import hide_hamburger_menu, show_page, update_session
 
 st.set_page_config(
     layout="wide",
-    page_title="JSSP",
+    page_title="Job Shop Web",
     page_icon=Image.open(PATH_ROOT / "favicon.ico"),
 )
 
@@ -24,7 +24,7 @@ page_titles = [PAGES[key] for key in page_ids]
 
 with st.sidebar:
     selected_item = option_menu(
-        "Job Shop Scheduling Problem",
+        "Job Shop Web",
         page_titles,
         icons=["house", "calculator", "calculator", "calculator", "calculator"],
         menu_icon="cast",

@@ -8,7 +8,7 @@ $p_{ji} \colon \text{tempo de processamento do trabalho} \; j \in J \; \text{na 
 
 $\sigma_{ji} \colon \text{roteiro de processamento do trabalho} \; j \in J \; \text{na máquina} \; i \in M,$
 
-$V \colon \text{valor grande o suficiente para garantir as restrições disjuntivas}, V = \sum\limits_{j=1}^n \sum\limits_{i=1}^m p_{ji}.$
+$V \colon \text{big-M}, V = \sum\limits_{j \in J} \sum\limits_{i \in M} p_{ji}.$
 
 #### Variáveis de decisão
 

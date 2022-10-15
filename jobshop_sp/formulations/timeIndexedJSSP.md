@@ -10,7 +10,7 @@ $p_{ij} \colon \text{tempo de processamento da tarefa} \; j \in J \; \text{na m�
 
 $\sigma_{ij} \colon \text{roteiro de processamento da tarefa} \; j \in J \; \text{na máquina} \; i \in M,$
 
-$S \colon \text{soma total dos tempos de processamento}, S = \sum\limits_{i=1}^m \sum\limits_{j=1}^n p_{ij}.$
+$S \colon \text{soma total dos tempos de processamento}, S = \sum\limits_{j \in J} \sum\limits_{i \in M} p_{ji}.$
 
 #### Variáveis de decisão
 

@@ -3,34 +3,17 @@ import pandas as pd
 import streamlit as st
 from st_aggrid import AgGrid
 
-from jobshop_sp._pages.utils import (convert_uploaded_df_to_grid,
-                                     generate_input_grid, get_array,
-                                     get_formulation, get_gantt, get_input_df,
-                                     get_title, show_btn_download_csv,
-                                     show_btn_download_results,
-                                     show_solver_log, validate_input_grid)
+import jobshop_sp._pages.utils as page
 from jobshop_sp.config.params import (AGGRID_THEME, JOB_COL, MACHINE_PREFIX,
                                       STAGE_PREFIX, TIME_UNITS)
-from jobshop_sp.optim.disjunctiveJSSP import DisjunctiveJSSP
+from jobshop_sp.optim.timeIndexedJSSP import TimeIndexedJSSP
 
-
-def get_template_tempos() -> pd.DataFrame:
-    data = np.array([[5, 7, 10], [9, 5, 3], [5, 8, 2], [2, 7, 4], [8, 8, 8]])
-    df = pd.DataFrame(data)
-    df.columns = ["machine1", "machine2", "machine3"]
-    return df
-
-
-def get_template_rotas() -> pd.DataFrame:
-    data = np.array([[2, 1, 3], [1, 2, 3], [3, 2, 1], [2, 1, 3], [3, 1, 2]])
-    df = pd.DataFrame(data)
-    df.columns = ["step1", "step2", "step3"]
-    return df
+MODEL_CLASS = TimeIndexedJSSP
 
 
 def timeIndexedJSSP_page(session):
-    st.header(get_title(session))
-    st.markdown(get_formulation(session))
+    st.header(page.get_title(session))
+    st.markdown(page.get_formulation(session))
     st.markdown("---")
 
     with st.container():
@@ -66,15 +49,15 @@ def timeIndexedJSSP_page(session):
         col1, col2, col3, col4 = st.columns([1, 1, 1, 1])
         with col2:
             if is_import_csv_selected:
-                show_btn_download_csv(
-                    get_template_tempos(),
+                page.show_btn_download_csv(
+                    page.get_template_times(),
                     label="Baixar template tempos",
                     filename="template_tempos.csv",
                 )
         with col3:
             if is_import_csv_selected:
-                show_btn_download_csv(
-                    get_template_rotas(),
+                page.show_btn_download_csv(
+                    page.get_template_routes(),
                     label="Baixar template rotas",
                     filename="template_rotas.csv",
                 )
@@ -84,25 +67,25 @@ def timeIndexedJSSP_page(session):
             and uploaded_tp is not None
             and uploaded_rp is not None
         ):
-            df_tp = convert_uploaded_df_to_grid(
+            df_tp = page.convert_uploaded_df_to_grid(
                 pd.read_csv(uploaded_tp), JOB_COL, MACHINE_PREFIX
             )
-            df_rp = convert_uploaded_df_to_grid(
+            df_rp = page.convert_uploaded_df_to_grid(
                 pd.read_csv(uploaded_rp), JOB_COL, STAGE_PREFIX
             )
         else:
-            df_tp = get_input_df(
+            df_tp = page.get_input_df(
                 n_jobs, n_machines, first_col=JOB_COL, prefix=MACHINE_PREFIX
             )
-            df_rp = get_input_df(
+            df_rp = page.get_input_df(
                 n_jobs, n_machines, first_col=JOB_COL, prefix=STAGE_PREFIX
             )
 
         st.subheader("Tempos de processamento")
-        df_tp = generate_input_grid(df_tp)["data"]
+        df_tp = page.generate_input_grid(df_tp)["data"]
 
         st.subheader("Rotas de processamento")
-        df_rp = generate_input_grid(df_rp)["data"]
+        df_rp = page.generate_input_grid(df_rp)["data"]
 
         ##### Resolução do problema #####
         col1, col2, col3, col4, col5 = st.columns(5)
@@ -110,9 +93,11 @@ def timeIndexedJSSP_page(session):
             btn_solve = st.button("Resolver")
 
         if btn_solve:
-            df_tp, tp_is_valid, tp_log_msgs = validate_input_grid(df_tp, JOB_COL)
+            df_tp, tp_is_valid, tp_log_msgs = page.validate_input_grid(df_tp, JOB_COL)
             if tp_is_valid:
-                df_rp, rp_is_valid, rp_log_msgs = validate_input_grid(df_rp, JOB_COL)
+                df_rp, rp_is_valid, rp_log_msgs = page.validate_input_grid(
+                    df_rp, JOB_COL
+                )
                 if not rp_is_valid:
                     for msg in rp_log_msgs:
                         st.error(msg)
@@ -123,18 +108,18 @@ def timeIndexedJSSP_page(session):
             if tp_is_valid and rp_is_valid:
 
                 # Resolve o modelo:
-                tempos = get_array(df_tp, JOB_COL)
-                rotas = get_array(df_rp, JOB_COL)
+                tempos = page.get_array(df_tp, JOB_COL)
+                rotas = page.get_array(df_rp, JOB_COL)
                 start_time = pd.to_datetime(f"{dt_start} {hr_start}")
-                model = DisjunctiveJSSP(
-                    tempos, rotas, start_time, TIME_UNITS[time_unit]
-                )
+                model = MODEL_CLASS(tempos, rotas, start_time, TIME_UNITS[time_unit])
                 model.solve()
 
-                show_solver_log(model.is_optimal, model.solver_time, model.objective)
+                page.show_solver_log(
+                    model.is_optimal, model.solver_time, model.objective
+                )
 
                 df_out = model.get_output_data()
-                st.plotly_chart(get_gantt(df_out))
+                st.plotly_chart(page.get_gantt(df_out))
 
                 AgGrid(
                     df_out,
@@ -145,4 +130,4 @@ def timeIndexedJSSP_page(session):
 
                 col1, col2, col3, col4, col5 = st.columns(5)
                 with col3:
-                    show_btn_download_results(df_out)
+                    page.show_btn_download_results(df_out)

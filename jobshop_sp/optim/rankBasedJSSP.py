@@ -5,7 +5,7 @@ import pyomo.environ as pyo
 from jobshop_sp.optim.model_base import ModelBase
 
 
-class TimeIndexedJSSP(ModelBase):
+class RankBasedJSSP(ModelBase):
     def generate_model(self) -> pyo.ConcreteModel:
         m = len(self.times[0])
         n = len(self.times)

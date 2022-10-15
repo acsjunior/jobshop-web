@@ -4,7 +4,8 @@ import plotly.express as px
 import streamlit as st
 from st_aggrid import AgGrid, GridOptionsBuilder
 
-from jobshop_sp.config.params import AGGRID_THEME, PAGES
+from jobshop_sp.config.params import (AGGRID_THEME, PAGES, TEMPLATE_ROUTES,
+                                      TEMPLATE_TIMES)
 from jobshop_sp.config.paths import PATH_FORMULATIONS
 
 
@@ -131,3 +132,17 @@ def show_btn_download_results(df: pd.DataFrame):
         file_name=f"results.csv",
         mime="text/csv",
     )
+
+
+def get_template_times() -> pd.DataFrame:
+    data = np.array(TEMPLATE_TIMES)
+    df = pd.DataFrame(data)
+    df.columns = ["machine1", "machine2", "machine3"]
+    return df
+
+
+def get_template_routes() -> pd.DataFrame:
+    data = np.array(TEMPLATE_ROUTES)
+    df = pd.DataFrame(data)
+    df.columns = ["step1", "step2", "step3"]
+    return df

@@ -9,7 +9,7 @@ from jobshop_sp._pages.rankBasedJSSP import rankBasedJSSP_page
 from jobshop_sp._pages.timeIndexedJSSP import timeIndexedJSSP_page
 from jobshop_sp.config.params import PAGES
 from jobshop_sp.config.paths import PATH_ROOT
-from jobshop_sp.utils import show_page, update_session
+from jobshop_sp.utils import hide_hamburger_menu, show_page, update_session
 
 st.set_page_config(
     layout="wide",
@@ -17,6 +17,7 @@ st.set_page_config(
     page_icon=Image.open(PATH_ROOT / "favicon.ico"),
 )
 
+hide_hamburger_menu()
 
 page_ids = list(PAGES.keys())
 page_titles = [PAGES[key] for key in page_ids]

@@ -24,7 +24,7 @@ $
     \end{cases}
 $
 
-#### Modelo matemático exato
+#### Modelo de Programação Linear Inteira Mista
 
 $\text{Min } C_{\text{max}}.$
 

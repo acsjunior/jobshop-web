@@ -9,8 +9,8 @@ from jobshop_sp._pages.utils import (convert_uploaded_df_to_grid,
                                      get_title, show_btn_download_csv,
                                      show_btn_download_results,
                                      show_solver_log, validate_input_grid)
-from jobshop_sp.config.params import (JOB_COL, MACHINE_PREFIX, STAGE_PREFIX,
-                                      TIME_UNITS)
+from jobshop_sp.config.params import (AGGRID_THEME, JOB_COL, MACHINE_PREFIX,
+                                      STAGE_PREFIX, TIME_UNITS)
 from jobshop_sp.optim.disjunctiveJSSP import DisjunctiveJSSP
 
 
@@ -36,7 +36,7 @@ def disjunctiveJSSP2_page(session):
     with st.container():
         col1, col2, col3, col4, col5 = st.columns(5)
         with col1:
-            n_jobs = st.number_input(label="Número de tarefas", min_value=1, value=3)
+            n_jobs = st.number_input(label="Número de tarefas", min_value=1, value=4)
         with col2:
             n_machines = st.number_input(
                 label="Número de máquinas", min_value=1, value=3
@@ -136,7 +136,12 @@ def disjunctiveJSSP2_page(session):
                 df_out = model.get_output_data()
                 st.plotly_chart(get_gantt(df_out))
 
-                AgGrid(df_out, height=250, enable_enterprise_modules=False)
+                AgGrid(
+                    df_out,
+                    height=250,
+                    enable_enterprise_modules=False,
+                    theme=AGGRID_THEME,
+                )
 
                 col1, col2, col3, col4, col5 = st.columns(5)
                 with col3:

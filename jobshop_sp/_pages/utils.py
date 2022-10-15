@@ -4,7 +4,7 @@ import plotly.express as px
 import streamlit as st
 from st_aggrid import AgGrid, GridOptionsBuilder
 
-from jobshop_sp.config.params import PAGES
+from jobshop_sp.config.params import AGGRID_THEME, PAGES
 from jobshop_sp.config.paths import PATH_FORMULATIONS
 
 
@@ -91,7 +91,10 @@ def generate_input_grid(df: pd.DataFrame):
     gb.configure_column(first_col, editable=False, width=80)
 
     go = gb.build()
-    return AgGrid(df, gridOptions=go, enable_enterprise_modules=False)
+
+    return AgGrid(
+        df, gridOptions=go, enable_enterprise_modules=False, theme=AGGRID_THEME
+    )
 
 
 def show_solver_log(is_optimal: bool, solver_time: float, objective: float):

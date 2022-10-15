@@ -6,6 +6,9 @@ PAGES = {
     "rankBasedJSSP": "Modelo Ordenado",
 }
 
+AGGRID_THEME = "alpine"
+# AGGRID_THEME = 'streamlit'
+
 TIME_UNITS = {"Minuto": "m", "Hora": "h", "Dia": "D"}
 
 JOB_COL = "Tarefa"

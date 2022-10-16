@@ -13,7 +13,6 @@ MODEL_CLASS = DisjunctiveJSSP2
 
 def disjunctiveJSSP2_page(session):
     st.header(page.get_title(session))
-    st.markdown(page.get_formulation(session))
     st.markdown("---")
 
     with st.container():

@@ -111,6 +111,7 @@ def show_solver_log(is_optimal: bool, solver_time: float, objective: float):
 
 
 def get_gantt(df: pd.DataFrame):
+    df = df.sort_values(by=["Máquina", "Tarefa"]).reset_index(drop=True)
     fig = px.timeline(
         df,
         x_start="Início",

@@ -118,7 +118,7 @@ def timeIndexedJSSP_page(session):
                 )
 
                 df_out = model.get_output_data()
-                st.plotly_chart(page.get_gantt(df_out))
+                st.plotly_chart(page.get_gantt(df_out), use_container_width=True)
 
                 AgGrid(
                     df_out,

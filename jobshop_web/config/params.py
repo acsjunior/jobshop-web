@@ -1,9 +1,9 @@
 PAGES = {
     "about": "Sobre",
-    "disjunctiveJSSP": "Modelo Disjuntivo",
-    "disjunctiveJSSP2": "Modelo Disjuntivo 2",
-    "timeIndexedJSSP": "Modelo Temporal",
-    "rankBasedJSSP": "Modelo Ordenado",
+    "disjunctiveJSSP": "Modelo disjuntivo (Manne)",
+    "disjunctiveJSSP2": "Modelo disjuntivo (Liao)",
+    "timeIndexedJSSP": "Modelo indexado no tempo",
+    "rankBasedJSSP": "Modelo baseado na ordem",
 }
 
 TEMPLATE_TIMES = [[5, 7, 10], [9, 5, 3], [5, 8, 2], [2, 7, 4], [8, 8, 8]]

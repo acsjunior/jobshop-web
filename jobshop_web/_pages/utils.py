@@ -49,7 +49,7 @@ def show_btn_download_csv(df: pd.DataFrame, label: str, filename: str):
 
 def convert_uploaded_df_to_grid(df: pd.DataFrame, first_col, prefix) -> pd.DataFrame:
     df.columns = [f"{prefix} {str(j+1)}" for j in range(len(df.columns))]
-    df[first_col] = [i + 1 for i in range(len(df.index))]
+    df[first_col] = [str(i + 1) for i in range(len(df.index))]
     sorted_columns = [first_col] + [col for col in df.columns if col != first_col]
     return df[sorted_columns]
 

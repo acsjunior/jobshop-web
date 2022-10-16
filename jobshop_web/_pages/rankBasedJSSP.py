@@ -122,7 +122,7 @@ def rankBasedJSSP_page(session):
 
                 AgGrid(
                     df_out,
-                    height=250,
+                    height=260,
                     enable_enterprise_modules=False,
                     theme=AGGRID_THEME,
                 )

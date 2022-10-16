@@ -118,10 +118,10 @@ class RankBasedJSSP(ModelBase):
             ),
             unit=self.time_unit,
         )
-        df_out["duração"] = durations
+        df_out["Duração"] = durations
 
         df_out["Término"] = df_out["Início"] + durations
 
         del df_out["rota"]
 
-        return df_out
+        return df_out.sort_values(by=["Tarefa", "Início"])

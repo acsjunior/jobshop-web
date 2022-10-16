@@ -83,17 +83,20 @@ class DisjunctiveJSSP(ModelBase):
             start_jobs, unit=self.time_unit
         )
 
-        durations = [float(self.model.p[k[0], k[1]]) for k in keys]
+        durations = pd.to_timedelta(
+            [float(self.model.p[k[0], k[1]]) for k in keys], unit=self.time_unit
+        )
 
-        end_jobs = start_jobs + pd.to_timedelta(durations, unit=self.time_unit)
+        end_jobs = start_jobs + durations
 
         df_out = pd.DataFrame(
             {
                 "Tarefa": jobs,
                 "Máquina": machines,
                 "Início": start_jobs,
+                "Duração": durations,
                 "Término": end_jobs,
             }
         )
 
-        return df_out
+        return df_out.sort_values(by=["Tarefa", "Início"])

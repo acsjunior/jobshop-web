@@ -102,9 +102,7 @@ class TimeIndexedJSSP(ModelBase):
         df_out["Início"] = pd.to_datetime(self.start_time) + pd.to_timedelta(
             df_out["Início"], unit=self.time_unit
         )
-        df_out["Término"] = df_out["Início"] + pd.to_timedelta(
-            df_out["Duração"], unit=self.time_unit
-        )
-        del df_out["Duração"]
+        df_out["Duração"] = pd.to_timedelta(df_out["Duração"], unit=self.time_unit)
+        df_out["Término"] = df_out["Início"] + df_out["Duração"]
 
-        return df_out
+        return df_out.sort_values(by=["Tarefa", "Início"])

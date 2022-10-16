@@ -73,7 +73,7 @@ class RankBasedJSSP(ModelBase):
 
         def constr5_rule(model, k, i):
             return (
-                model.h[i, n] + sum(model.p[j, i] * model.x[j, k, i] for j in model.J)
+                model.h[i, n] + sum(model.p[j, i] * model.x[j, n, i] for j in model.J)
                 <= model.Cmax
             )
 

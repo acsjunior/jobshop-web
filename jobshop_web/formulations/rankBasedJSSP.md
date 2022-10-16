@@ -44,6 +44,6 @@ $h_{ik} + \sum\limits_{j \in J} p_{ji} x_{jki} \leq h_{i{k+1}} \;\; i \in M, \; 
 
 $ \sum\limits_{i \in M} r_{jil} h_{ik} + \sum\limits_{i \in M} r_{jil} p_{ji} \leq V(1 - \sum\limits_{i \in M} r_{jil} x_{jki}) + V(1 - \sum\limits_{i \in M} r_{ji{l+1}} x_{jk^{'}i}) + \sum\limits_{i \in M} r_{ji{l+1}} h_{ik^{'}} \;\; \forall j,k,k^{'} \in J, \; l \in M \mid l \lt m,$
 
-$h_{in} + \sum\limits_{j \in J} p_{ji} x_{jki} \leq C_{\text{max}},$
+$h_{in} + \sum\limits_{j \in J} p_{ji} x_{jni} \leq C_{\text{max}},$
 
 $h_{ik} \geq 0, \; x_{jki} \in \{0,1\}.$

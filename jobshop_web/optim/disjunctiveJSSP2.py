@@ -20,7 +20,7 @@ class DisjunctiveJSSP2(ModelBase):
             model.J, model.M, initialize=lambda model, j, i: self.times[j - 1][i - 1]
         )
         model.s = pyo.Param(
-            model.J, model.M, initialize=lambda model, j, i: self.times[j - 1][i - 1]
+            model.J, model.M, initialize=lambda model, j, i: self.routes[j - 1][i - 1]
         )
 
         # Variáveis de decisão:

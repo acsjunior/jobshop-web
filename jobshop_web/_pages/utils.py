@@ -97,6 +97,27 @@ def generate_input_grid(df: pd.DataFrame):
         df, gridOptions=go, enable_enterprise_modules=False, theme=AGGRID_THEME
     )
 
+def generate_output_grid(df: pd.DataFrame):
+    gb = GridOptionsBuilder.from_dataframe(df)
+    gb.configure_default_column(
+        sorteable=False,
+        filterable=False,
+        resizable=False,
+        groupable=False,
+        editable=False,
+        width=160,
+        type="f",
+    )
+    key_cols = df.columns[:2]
+    for col in key_cols:
+        gb.configure_column(col, width=100)
+
+    go = gb.build()
+
+    return AgGrid(
+        df, gridOptions=go, enable_enterprise_modules=False, theme=AGGRID_THEME, height=385
+    )
+
 
 def show_solver_log(is_optimal: bool, solver_time: float, objective: float):
     if is_optimal:

@@ -117,15 +117,10 @@ def timeIndexedJSSP_page(session):
                     model.is_optimal, model.solver_time, model.objective
                 )
 
+                # Visualização dos dados de saída:
                 df_out = model.get_output_data()
                 st.plotly_chart(page.get_gantt(df_out), use_container_width=True)
-
-                AgGrid(
-                    df_out,
-                    height=260,
-                    enable_enterprise_modules=False,
-                    theme=AGGRID_THEME,
-                )
+                output_grid = page.generate_output_grid(df_out)
 
                 col1, col2, col3, col4, col5 = st.columns(5)
                 with col3:

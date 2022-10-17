@@ -97,6 +97,7 @@ def generate_input_grid(df: pd.DataFrame):
         df, gridOptions=go, enable_enterprise_modules=False, theme=AGGRID_THEME
     )
 
+
 def generate_output_grid(df: pd.DataFrame):
     gb = GridOptionsBuilder.from_dataframe(df)
     gb.configure_default_column(
@@ -115,7 +116,11 @@ def generate_output_grid(df: pd.DataFrame):
     go = gb.build()
 
     return AgGrid(
-        df, gridOptions=go, enable_enterprise_modules=False, theme=AGGRID_THEME, height=385
+        df,
+        gridOptions=go,
+        enable_enterprise_modules=False,
+        theme=AGGRID_THEME,
+        height=385,
     )
 
 

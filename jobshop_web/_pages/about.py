@@ -39,7 +39,7 @@ def about_page(session):
 
     Este software pode ser utilizado gratuitamente. Para citá-lo: SILVA JÚNIOR, A. C. Job Shop Web (v.1.0). 2022.
 
-    O código fonte está disponível no [GitHub](https://github.com/juniorssz/jobshop-web) sob a licença MPL 2.0 e você pode não só contribuir com melhorias, mas também modificar e redistribuir. Lembrando que versões modificadas deste software devem ser distribuídas sob a mesma licença.
+    O código fonte está disponível no [GitHub](https://github.com/juniorssz/jobshop-web) e você pode não só contribuir com melhorias, mas também redistribuí-lo e/ou modificá-lo, sob os termos da GPL v3.0 ou qualquer versão posterior.
 
     Para contatar o autor deste software, acesse [acsjunior.com](https://acsjunior.com).
     """

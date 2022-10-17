@@ -2,7 +2,7 @@
 name = "jobshop-web"
 version = "0.1.0"
 description = ""
-authors = ["Antonio Júnior <juniorssz@gmail.com>"]
+authors = ["António C. da Silva Júnior <juniorssz@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]

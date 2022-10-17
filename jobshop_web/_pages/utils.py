@@ -89,7 +89,7 @@ def generate_input_grid(df: pd.DataFrame):
         type="f",
     )
     first_col = df.columns[0]
-    gb.configure_column(first_col, editable=False, width=80)
+    gb.configure_column(first_col, editable=False, width=100)
 
     go = gb.build()
 
@@ -137,13 +137,13 @@ def show_solver_log(is_optimal: bool, solver_time: float, objective: float):
 
 
 def get_gantt(df: pd.DataFrame):
-    df = df.sort_values(by=["Máquina", "Tarefa"]).reset_index(drop=True)
+    df = df.sort_values(by=["Máquina", "Trabalho"]).reset_index(drop=True)
     fig = px.timeline(
         df,
         x_start="Início",
         x_end="Término",
         y="Máquina",
-        color="Tarefa",
+        color="Trabalho",
         title="Gráfico de Gantt",
     )
 

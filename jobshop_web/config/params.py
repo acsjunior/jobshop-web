@@ -33,6 +33,6 @@ AGGRID_THEME = "alpine"
 
 TIME_UNITS = {"Minuto": "m", "Hora": "h", "Dia": "D"}
 
-JOB_COL = "Tarefa"
+JOB_COL = "Trabalho"
 MACHINE_PREFIX = "Máquina"
 STAGE_PREFIX = "Etapa"

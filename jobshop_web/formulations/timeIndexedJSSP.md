@@ -6,9 +6,9 @@ $M \colon \text{conjunto de máquinas,} \; J = \{1,2,\ldots,n\},$
 
 $H \colon \text{tempo discretizado,} \; H = \{0,1,2,\ldots,S\},$
 
-$p_{ij} \colon \text{tempo de processamento da tarefa} \; j \in J \; \text{na máquina} \; i \in M,$
+$p_{ij} \colon \text{tempo de processamento da trabalho} \; j \in J \; \text{na máquina} \; i \in M,$
 
-$\sigma_{ij} \colon \text{roteiro de processamento da tarefa} \; j \in J \; \text{na máquina} \; i \in M,$
+$\sigma_{ij} \colon \text{roteiro de processamento da trabalho} \; j \in J \; \text{na máquina} \; i \in M,$
 
 $S \colon \text{soma total dos tempos de processamento}, S = \sum\limits_{j \in J} \sum\limits_{i \in M} p_{ji}.$
 
@@ -17,7 +17,7 @@ $S \colon \text{soma total dos tempos de processamento}, S = \sum\limits_{j \in 
 $C_{\text{max}} \colon \text{makespan},$
 
 $
-    x_{ijk} \colon
+    x_{ijt} \colon
     \begin{cases}
     1; & \text{se o trabalho} \; j \in J \; \text{inicia o processamento no tempo} \; t \in H \; \text{na máquina} \; i \in M \\
     0; & \text{caso contrário.}

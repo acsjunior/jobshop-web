@@ -9,7 +9,7 @@ $p_{ji} \colon \text{tempo de processamento do trabalho} \; j \in J \; \text{na 
 $
     r_{jil} \colon
     \begin{cases}
-    1; & \text{se a operação} \; l \in M \; \text{do trabalho trabalho} \; j \in J \; \text{requer a máquina} \; i \in M \\
+    1; & \text{se a operação} \; l \in M \; \text{do trabalho} \; j \in J \; \text{requer a máquina} \; i \in M \\
     0; & \text{caso contrário,}
     \end{cases}
 $

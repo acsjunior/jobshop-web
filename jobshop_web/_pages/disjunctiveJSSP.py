@@ -37,7 +37,7 @@ def disjunctiveJSSP_page(session):
     with st.container():
         col1, col2, col3, col4, col5 = st.columns(5)
         with col1:
-            n_jobs = st.number_input(label="Número de tarefas", min_value=1, value=4)
+            n_jobs = st.number_input(label="Número de Trabalhos", min_value=1, value=4)
         with col2:
             n_machines = st.number_input(
                 label="Número de máquinas", min_value=1, value=3

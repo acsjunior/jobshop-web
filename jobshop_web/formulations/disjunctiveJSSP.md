@@ -1,6 +1,6 @@
 #### Conjuntos e parâmetros
 
-$J \colon \text{conjunto de trabalhos,} \; J = \{1,2,\ldots,n\},$
+$J \colon `\text{conjunto de trabalhos,} \; J = \{1,2,\ldots,n\}`,$
 
 $M \colon \text{conjunto de máquinas,} \; M = \{1,2,\ldots,m\},$
 

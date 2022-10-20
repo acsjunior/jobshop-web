@@ -17,7 +17,7 @@ $S \colon \text{soma total dos tempos de processamento}, S = \sum\limits_{j \in 
 $C_{\text{max}} \colon \text{makespan},$
 
 $
-    x_{ijt} \colon
+    y_{ijt} \colon
     \begin{cases}
     1; & \text{se o trabalho} \; j \in J \; \text{inicia o processamento no tempo} \; t \in H \; \text{na máquina} \; i \in M \\
     0; & \text{caso contrário.}
@@ -30,12 +30,12 @@ $\text{Min } C_{\text{max}}.$
 
 Sujeito a
 
-$\sum\limits_{t \in H} x_{ijt} = 1 \;\; \forall i \in M, \; j \in J,$
+$\sum\limits_{t \in H} y_{ijt} = 1 \;\; \forall i \in M, \; j \in J,$
 
-$\sum\limits_{t \in H} (t + p_{ji}) x_{ijt} \leq C_{\text{max}} \;\; \forall i \in M, \; j \in J,$
+$\sum\limits_{t \in H} (t + p_{ji}) y_{ijt} \leq C_{\text{max}} \;\; \forall i \in M, \; j \in J,$
 
-$\sum\limits_{j \in J} \sum\limits_{t^{'} \in T_{ijt}} x_{jit^{'}} \leq 1 \;\; \forall i \in M, j \in J, t \in H \mid T_{ijt} = \{ t - p_{ji} + 1, \ldots, t\},$
+$\sum\limits_{j \in J} \sum\limits_{t^{'} \in T_{ijt}} y_{jit^{'}} \leq 1 \;\; \forall i \in M, j \in J, t \in H \mid T_{ijt} = \{ t - p_{ji} + 1, \ldots, t\},$
 
-$\sum\limits_{t \in H} (t + p_{j,\sigma_{ji-1}}) x_{\sigma_{ji-1}, jt} \leq \sum\limits_{t \in H} t \cdot x_{\sigma_{ji}, jt} \;\; \forall i \in M, j \in J \mid i \geq 2$
+$\sum\limits_{t \in H} (t + p_{j,\sigma_{ji-1}}) y_{\sigma_{ji-1}, jt} \leq \sum\limits_{t \in H} t \cdot y_{\sigma_{ji}, jt} \;\; \forall i \in M, j \in J \mid i \geq 2$
 
-$x_{jit} \in \{0,1\}$
+$y_{jit} \in \{0,1\}$

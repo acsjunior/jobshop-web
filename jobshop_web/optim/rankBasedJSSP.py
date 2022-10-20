@@ -49,7 +49,7 @@ class RankBasedJSSP(ModelBase):
 
         # Variáveis de decisão:
         model.Cmax = pyo.Var()
-        model.x = pyo.Var(model.J, model.J, model.M, within=pyo.Binary)
+        model.w = pyo.Var(model.J, model.J, model.M, within=pyo.Binary)
         model.h = pyo.Var(model.M, model.J, within=pyo.NonNegativeReals)
 
         # Função objetivo:
@@ -59,18 +59,18 @@ class RankBasedJSSP(ModelBase):
         model.obj = pyo.Objective(rule=obj_rule, sense=pyo.minimize)
 
         def constr1_rule(model, k, i):
-            return sum(model.x[j, k, i] for j in model.J) == 1
+            return sum(model.w[j, k, i] for j in model.J) == 1
 
         model.constr1 = pyo.Constraint(model.J, model.M, rule=constr1_rule)
 
         def constr2_rule(model, j, i):
-            return sum(model.x[j, k, i] for k in model.J) == 1
+            return sum(model.w[j, k, i] for k in model.J) == 1
 
         model.constr2 = pyo.Constraint(model.J, model.M, rule=constr2_rule)
 
         def constr3_rule(model, k, i):
             return (
-                model.h[i, k] + sum(model.p[j, i] * model.x[j, k, i] for j in model.J)
+                model.h[i, k] + sum(model.p[j, i] * model.w[j, k, i] for j in model.J)
                 <= model.h[i, k + 1]
             )
 
@@ -81,8 +81,8 @@ class RankBasedJSSP(ModelBase):
         def constr4_rule(model, j, k, k_, l):
             a = sum(model.r[j, i, l] * model.h[i, k] for i in model.M)
             b = sum(model.r[j, i, l] * model.p[j, i] for i in model.M)
-            c = V * (1 - sum(model.r[j, i, l] * model.x[j, k, i] for i in model.M))
-            d = V * (1 - sum(model.r[j, i, l + 1] * model.x[j, k_, i] for i in model.M))
+            c = V * (1 - sum(model.r[j, i, l] * model.w[j, k, i] for i in model.M))
+            d = V * (1 - sum(model.r[j, i, l + 1] * model.w[j, k_, i] for i in model.M))
             e = sum(model.r[j, i, l + 1] * model.h[i, k_] for i in model.M)
             return a + b <= c + d + e
 
@@ -92,7 +92,7 @@ class RankBasedJSSP(ModelBase):
 
         def constr5_rule(model, k, i):
             return (
-                model.h[i, n] + sum(model.p[j, i] * model.x[j, n, i] for j in model.J)
+                model.h[i, n] + sum(model.p[j, i] * model.w[j, n, i] for j in model.J)
                 <= model.Cmax
             )
 
@@ -102,7 +102,7 @@ class RankBasedJSSP(ModelBase):
 
     def get_output_data(self):
         keys = [
-            key for key in self.model.x if self.model.x[key[0], key[1], key[2]]() == 1.0
+            key for key in self.model.w if self.model.w[key[0], key[1], key[2]]() == 1.0
         ]
 
         machines = []

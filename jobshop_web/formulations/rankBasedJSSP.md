@@ -23,7 +23,7 @@ $C_{\text{max}} \colon \text{makespan},$
 $h_{ik} \colon \text{instante de início do trabalho} \; k \in J \; \text{da máquina} \; i \in M,$
 
 $
-    x_{jki} \colon
+    w_{jki} \colon
     \begin{cases}
     1; & \text{se o trabalho} \; j \in J \; \text{for sequenciado na ordem} \; k \in J \; \text{na máquina} \; i \in M \\
     0; & \text{caso contrário.}
@@ -36,14 +36,14 @@ $\text{Min } C_{\text{max}}.$
 
 Sujeito a
 
-$\sum\limits_{j \in J} x_{jki} = 1 \;\; \forall i \in M, \; k \in J,$
+$\sum\limits_{j \in J} w_{jki} = 1 \;\; \forall i \in M, \; k \in J,$
 
-$\sum\limits_{k \in J} x_{jki} = 1 \;\; \forall i \in M, \; j \in J,$
+$\sum\limits_{k \in J} w_{jki} = 1 \;\; \forall i \in M, \; j \in J,$
 
-$h_{ik} + \sum\limits_{j \in J} p_{ji} x_{jki} \leq h_{i{k+1}} \;\; i \in M, \; k \in J \mid k \lt n,$
+$h_{ik} + \sum\limits_{j \in J} p_{ji} w_{jki} \leq h_{i{k+1}} \;\; i \in M, \; k \in J \mid k \lt n,$
 
-$ \sum\limits_{i \in M} r_{jil} h_{ik} + \sum\limits_{i \in M} r_{jil} p_{ji} \leq V(1 - \sum\limits_{i \in M} r_{jil} x_{jki}) + V(1 - \sum\limits_{i \in M} r_{ji{l+1}} x_{jk^{'}i}) + \sum\limits_{i \in M} r_{ji{l+1}} h_{ik^{'}} \;\; \forall j,k,k^{'} \in J, \; l \in M \mid l \lt m,$
+$ \sum\limits_{i \in M} r_{jil} h_{ik} + \sum\limits_{i \in M} r_{jil} p_{ji} \leq V(1 - \sum\limits_{i \in M} r_{jil} w_{jki}) + V(1 - \sum\limits_{i \in M} r_{ji{l+1}} w_{jk^{'}i}) + \sum\limits_{i \in M} r_{ji{l+1}} h_{ik^{'}} \;\; \forall j,k,k^{'} \in J, \; l \in M \mid l \lt m,$
 
-$h_{in} + \sum\limits_{j \in J} p_{ji} x_{jni} \leq C_{\text{max}},$
+$h_{in} + \sum\limits_{j \in J} p_{ji} w_{jni} \leq C_{\text{max}},$
 
-$h_{ik} \geq 0, \; x_{jki} \in \{0,1\}.$
+$h_{ik} \geq 0, \; w_{jki} \in \{0,1\}.$

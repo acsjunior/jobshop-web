@@ -129,7 +129,7 @@ def show_solver_log(is_optimal: bool, solver_time: float, objective: float):
         st.success(
             f"""
             Solução ótima encontrada em {np.round(solver_time,4)} segundos. \n
-            Função objetivo {objective}.
+            Função objetivo (makespan): {objective}.
             """
         )
     else:

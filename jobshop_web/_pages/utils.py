@@ -65,13 +65,13 @@ def validate_input_grid(df: pd.DataFrame, first_col: str):
                 df[col] = df[col].astype(float)
                 n_nans = df[col].isna().sum()
                 if n_nans > 0:
-                    log_msgs.append(f"Dado(s) incorreto(s) na coluna {col}")
+                    log_msgs.append(f"Incorrect data in column {col}")
                     is_valid = False
                 if df[df[col] == 0].shape[0] > 0:
-                    log_msgs.append(f"Células zeradas na coluna {col}")
+                    log_msgs.append(f"Zero cells in column {col}")
                     is_valid = False
             except:
-                log_msgs.append(f"Dado(s) incorreto(s) na coluna {col}")
+                log_msgs.append(f"Incorrect data in column {col}")
                 is_valid = False
 
     return df, is_valid, log_msgs
@@ -128,23 +128,23 @@ def show_solver_log(is_optimal: bool, solver_time: float, objective: float):
     if is_optimal:
         st.success(
             f"""
-            Solução ótima encontrada em {np.round(solver_time,4)} segundos. \n
-            Função objetivo (makespan): {objective}.
+            Optimal solution found in {np.round(solver_time,4)} seconds. \n
+            Objective function (makespan): {objective}.
             """
         )
     else:
-        st.error("Não foi possível encontrar uma solução factível.")
+        st.error("Could not find a feasible solution.")
 
 
 def get_gantt(df: pd.DataFrame):
-    df = df.sort_values(by=["Máquina", "Trabalho"]).reset_index(drop=True)
+    df = df.sort_values(by=["Machine", "Job"]).reset_index(drop=True)
     fig = px.timeline(
         df,
-        x_start="Início",
-        x_end="Término",
-        y="Máquina",
-        color="Trabalho",
-        title="Gráfico de Gantt",
+        x_start="Start",
+        x_end="End",
+        y="Machine",
+        color="Job",
+        title="Gantt chart",
     )
 
     fig.update_yaxes(autorange="reversed")
@@ -154,7 +154,7 @@ def get_gantt(df: pd.DataFrame):
 
 def show_btn_download_results(df: pd.DataFrame):
     st.download_button(
-        label="Baixar plano",
+        label="Download results",
         data=df.to_csv(index=False).encode("utf-8"),
         file_name=f"results.csv",
         mime="text/csv",

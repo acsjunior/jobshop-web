@@ -111,17 +111,17 @@ class TimeIndexedJSSP(ModelBase):
 
         df_out = pd.DataFrame(
             {
-                "Trabalho": [str(j) for j in jobs],
-                "Máquina": [str(m) for m in machines],
-                "Início": [t for t in times],
-                "Duração": durations,
+                "Job": [str(j) for j in jobs],
+                "Machine": [str(m) for m in machines],
+                "Start": [t for t in times],
+                "Duration": durations,
             }
         )
 
-        df_out["Início"] = pd.to_datetime(self.start_time) + pd.to_timedelta(
-            df_out["Início"], unit=self.time_unit
+        df_out["Start"] = pd.to_datetime(self.start_time) + pd.to_timedelta(
+            df_out["Start"], unit=self.time_unit
         )
-        df_out["Duração"] = pd.to_timedelta(df_out["Duração"], unit=self.time_unit)
-        df_out["Término"] = df_out["Início"] + df_out["Duração"]
+        df_out["Duration"] = pd.to_timedelta(df_out["Duration"], unit=self.time_unit)
+        df_out["End"] = df_out["Start"] + df_out["Duration"]
 
-        return df_out.sort_values(by=["Trabalho", "Início"])
+        return df_out.sort_values(by=["Job", "Start"])

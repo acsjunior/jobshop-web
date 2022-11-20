@@ -110,12 +110,12 @@ class DisjunctiveJSSP(ModelBase):
 
         df_out = pd.DataFrame(
             {
-                "Trabalho": jobs,
-                "Máquina": machines,
-                "Início": start_jobs,
-                "Duração": durations,
-                "Término": end_jobs,
+                "Job": jobs,
+                "Machine": machines,
+                "Start": start_jobs,
+                "Duration": durations,
+                "End": end_jobs,
             }
         )
 
-        return df_out.sort_values(by=["Trabalho", "Início"])
+        return df_out.sort_values(by=["Job", "Start"])

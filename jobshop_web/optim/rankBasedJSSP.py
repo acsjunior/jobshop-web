@@ -126,21 +126,21 @@ class RankBasedJSSP(ModelBase):
             start_jobs.append(start_job)
 
         df_out = pd.DataFrame(
-            {"Trabalho": jobs, "Máquina": machines, "Início": start_jobs}
+            {"Job": jobs, "Machine": machines, "Start": start_jobs}
         )
-        df_out = df_out.sort_values(by=["Trabalho", "Início"]).reset_index(drop=True)
-        df_out["rota"] = (df_out.groupby("Trabalho")["Início"].rank()).astype(int)
+        df_out = df_out.sort_values(by=["Job", "Start"]).reset_index(drop=True)
+        df_out["route"] = (df_out.groupby("Job")["Start"].rank()).astype(int)
 
         durations = pd.to_timedelta(
             df_out.apply(
-                lambda x: self.model.p[int(x["Trabalho"]), int(x["Máquina"])], axis=1
+                lambda x: self.model.p[int(x["Job"]), int(x["Machine"])], axis=1
             ),
             unit=self.time_unit,
         )
-        df_out["Duração"] = durations
+        df_out["Duration"] = durations
 
-        df_out["Término"] = df_out["Início"] + durations
+        df_out["End"] = df_out["Start"] + durations
 
-        del df_out["rota"]
+        del df_out["route"]
 
-        return df_out.sort_values(by=["Trabalho", "Início"])
+        return df_out.sort_values(by=["Job", "Start"])

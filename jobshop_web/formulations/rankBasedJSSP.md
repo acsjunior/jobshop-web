@@ -1,36 +1,36 @@
-#### Conjuntos e parâmetros
+#### Sets and parameters
 
-$J \colon \text{conjunto de trabalhos,} \; J = \{1,2,\ldots,n\},$
+$J \colon \text{set of jobs,} \; J = \{1,2,\ldots,n\},$
 
-$M \colon \text{conjunto de máquinas,} \; M = \{1,2,\ldots,m\},$
+$M \colon \text{set of machines,} \; M = \{1,2,\ldots,m\},$
 
-$p_{ji} \colon \text{tempo de processamento do trabalho} \; j \in J \; \text{na máquina} \; i \in M,$
+$p_{ji} \colon \text{processing time of job} \; j \in J \; \text{on machine} \; i \in M,$
 
 $
     r_{jil} \colon
     \begin{cases}
-    1; & \text{se a operação} \; l \in M \; \text{do trabalho} \; j \in J \; \text{requer a máquina} \; i \in M \\
-    0; & \text{caso contrário,}
+    1; & \text{if the operation} \; l \in M \; \text{of job} \; j \in J \; \text{requires machine} \; i \in M \\
+    0; & \text{otherwise,}
     \end{cases}
 $
 
 $V \colon \text{big-M}, V = \sum\limits_{j \in J} \sum\limits_{i \in M} p_{ji}.$
 
-#### Variáveis de decisão
+#### Decision variables
 
 $C_{\text{max}} \colon \text{makespan},$
 
-$h_{ik} \colon \text{instante de início do trabalho} \; k \in J \; \text{da máquina} \; i \in M,$
+$h_{ik} \colon \text{start time of job} \; k \in J \; \text{on machine} \; i \in M,$
 
 $
     w_{jki} \colon
     \begin{cases}
-    1; & \text{se o trabalho} \; j \in J \; \text{for sequenciado na ordem} \; k \in J \; \text{na máquina} \; i \in M \\
-    0; & \text{caso contrário.}
+    1; & \text{if the job} \; j \in J \; \text{is sequenced in order} \; k \in J \; \text{on machine} \; i \in M \\
+    0; & \text{otherwise.}
     \end{cases}
 $
 
-#### Modelo de Programação Linear Inteira Mista
+#### MILP model
 
 $\text{Min } C_{\text{max}}.$
 

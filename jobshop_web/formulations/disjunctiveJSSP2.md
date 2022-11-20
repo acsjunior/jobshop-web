@@ -1,32 +1,32 @@
-#### Conjuntos e parâmetros
+#### Sets and parameters
 
-$J \colon \text{conjunto de trabalhos,} \; J = \{1,2,\ldots,n\},$
+$J \colon \text{set of jobs,} \; J = \{1,2,\ldots,n\},$
 
-$M \colon \text{conjunto de máquinas,} \; M = \{1,2,\ldots,m\},$
+$M \colon \text{set of machines,} \; M = \{1,2,\ldots,m\},$
 
-$p_{ji} \colon \text{tempo de processamento do trabalho} \; j \in J \; \text{na máquina} \; i \in M,$
+$p_{ji} \colon \text{processing time of job} \; j \in J \; \text{on machine} \; i \in M,$
 
-$\sigma_{ji} \colon \text{roteiro de processamento do trabalho} \; j \in J \; \text{na máquina} \; i \in M,$
+$\sigma_{ji} \colon \text{processing route of job} \; j \in J \; \text{on machine} \; i \in M,$
 
 $V \colon \text{big-M}, V = \sum\limits_{j \in J} \sum\limits_{i \in M} p_{ji}.$
 
-#### Variáveis de decisão
+#### Decision variables
 
 $C_{\text{max}} \colon \text{makespan},$
 
-$x_{ji} \colon \text{instante de início do trabalho} \; j \in J \; \text{na máquina} \; i \in M,$
+$x_{ji} \colon \text{start time of job} \; j \in J \; \text{on machine} \; i \in M,$
 
 $
     z_{ijk} \colon
     \begin{cases}
-    1; & \text{se o trabalho} \; j \in J \; \text{precede o trabalho} \; k \in J \; \text{na máquina} \; i \in M \\
-    0; & \text{caso contrário,}
+    1; & \text{if the job} \; j \in J \; \text{precedes the job} \; k \in J \; \text{on machine} \; i \in M \\
+    0; & \text{otherwise.}
     \end{cases}
 $
 
-$q_{ijk} \colon \text{variável de folga}.$
+$q_{ijk} \colon \text{surplus variable}.$
 
-#### Modelo de Programação Linear Inteira Mista
+#### MILP model
 
 $\text{Min } C_{\text{max}}.$
 

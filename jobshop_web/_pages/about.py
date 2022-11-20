@@ -28,20 +28,20 @@ def about_page(session):
     st.header(get_title(session))
 
     about = """
-    **Job Shop Web** é uma aplicação para fins didáticos que permite a resolução do problema do job shop com minimização do makespan por meio de quatro modelos de programação linear inteira mista:
+    **Job Shop Web** is an application for didactic purposes that allows solving the job shop problem with makespan minimization using four models of mixed integer linear programming:
 
-    - [Modelo disjuntivo (Manne)](#modelo-disjuntivo-manne);
-    - [Modelo disjuntivo (Liao)](#modelo-disjuntivo-liao);
-    - [Modelo indexado no tempo](#modelo-indexado-no-tempo);
-    - [Modelo baseado na ordem](#modelo-baseado-na-ordem).
+    - [Disjunctive model (Manne)](#modelo-disjuntivo-manne);
+    - [Disjunctive model (Liao)](#modelo-disjuntivo-liao);
+    - [Time-indexed model](#modelo-indexado-no-tempo);
+    - [Order-based model](#modelo-baseado-na-ordem).
 
-    Os modelos utilizados são baseados nos trabalhos de [Manne (1960)](https://pubsonline.informs.org/doi/abs/10.1287/opre.8.2.219), [Liao e You (1992)](https://www.tandfonline.com/doi/abs/10.1057/jors.1992.162), [Kondili et al. (1988)](https://www.researchgate.net/profile/Roger-Sargent/publication/272294074_A_General_Algorithm_for_Scheduling_Batch_Operations/links/54e114140cf24d184b0fc476/A-General-Algorithm-for-Scheduling-Batch-Operations.pdf) e [Wagner (1959)](https://onlinelibrary.wiley.com/doi/abs/10.1002/nav.3800060205), respectivamente, e tiveram a implementação computacional facilitada graças aos trabalhos de [Ku e Beck (2016)](https://www.sciencedirect.com/science/article/abs/pii/S0305054816300764) e [Aguiar Júnior (2021)](https://repositorio.ufc.br/bitstream/riufc/59600/3/2021_dis_jcajunior.pdf).
+    The models are based on the works of [Manne (1960)](https://pubsonline.informs.org/doi/abs/10.1287/opre.8.2.219), [Liao e You (1992)](https://www.tandfonline.com/doi/abs/10.1057/jors.1992.162), [Kondili et al. (1988)](https://www.researchgate.net/profile/Roger-Sargent/publication/272294074_A_General_Algorithm_for_Scheduling_Batch_Operations/links/54e114140cf24d184b0fc476/A-General-Algorithm-for-Scheduling-Batch-Operations.pdf), and [Wagner (1959)](https://onlinelibrary.wiley.com/doi/abs/10.1002/nav.3800060205), respectively. Their computational implementation was facilitated thanks to the works of [Ku e Beck (2016)](https://www.sciencedirect.com/science/article/abs/pii/S0305054816300764) and [Aguiar Júnior (2021)](https://repositorio.ufc.br/bitstream/riufc/59600/3/2021_dis_jcajunior.pdf) and to Professor [Cassiano Tavares](https://scholar.google.com.br/citations?user=v55iBgUAAAAJ&hl=en&oi=ao)' classes.
 
-    Este software pode ser utilizado gratuitamente. Para citá-lo: SILVA JÚNIOR, A. C. Job Shop Web (v.1.0). 2022.
+    This software can be used free of charge. To cite: SILVA JÚNIOR, A. C. Job Shop Web (v.1.0). 2022.
 
-    O código fonte está disponível no [GitHub](https://github.com/juniorssz/jobshop-web) e você pode não só contribuir com melhorias, mas também redistribuí-lo e/ou modificá-lo, sob os termos da GPL v3.0 ou qualquer versão posterior.
+    The source code is available on [GitHub](https://github.com/juniorssz/jobshop-web), and you can contribute improvements and redistribute or modify it under the terms of GPL v3.0 or any later version.
 
-    Para contatar o autor deste software, acesse [acsjunior.com](https://acsjunior.com).
+    To contact the author of this software, go to [acsjunior.com](https://acsjunior.com).
     """
 
     st.markdown(about)
@@ -53,4 +53,4 @@ def about_page(session):
                 st.subheader(PAGES[prefix])
                 st.markdown(f.read())
                 st.text("")
-                st.markdown("[Voltar ao topo](#sobre)")
+                st.markdown("[Back to top](#sobre)")

@@ -18,11 +18,11 @@ You should have received a copy of the GNU General Public License
 along with Job Shop Web.  If not, see <https://www.gnu.org/licenses/>.
 """
 PAGES = {
-    "about": "Sobre",
-    "disjunctiveJSSP": "Modelo disjuntivo (Manne)",
-    "disjunctiveJSSP2": "Modelo disjuntivo (Liao)",
-    "timeIndexedJSSP": "Modelo indexado no tempo",
-    "rankBasedJSSP": "Modelo baseado na ordem",
+    "about": "About",
+    "disjunctiveJSSP": "Disjunctive model (Manne)",
+    "disjunctiveJSSP2": "Disjunctive model (Liao)",
+    "timeIndexedJSSP": "Time-indexed model",
+    "rankBasedJSSP": "Order-based model",
 }
 
 TEMPLATE_TIMES = [[5, 7, 10], [9, 5, 3], [5, 8, 2], [2, 7, 4], [8, 8, 8]]

@@ -33,7 +33,7 @@ def about_page(session):
     - [Disjunctive model (Manne)](#modelo-disjuntivo-manne);
     - [Disjunctive model (Liao)](#modelo-disjuntivo-liao);
     - [Time-indexed model](#modelo-indexado-no-tempo);
-    - [Order-based model](#modelo-baseado-na-ordem).
+    - [Rank-based model](#modelo-baseado-na-ordem).
 
     The models are based on the works of [Manne (1960)](https://pubsonline.informs.org/doi/abs/10.1287/opre.8.2.219), [Liao e You (1992)](https://www.tandfonline.com/doi/abs/10.1057/jors.1992.162), [Kondili et al. (1988)](https://www.researchgate.net/profile/Roger-Sargent/publication/272294074_A_General_Algorithm_for_Scheduling_Batch_Operations/links/54e114140cf24d184b0fc476/A-General-Algorithm-for-Scheduling-Batch-Operations.pdf), and [Wagner (1959)](https://onlinelibrary.wiley.com/doi/abs/10.1002/nav.3800060205), respectively. Their computational implementation was facilitated thanks to the works of [Ku e Beck (2016)](https://www.sciencedirect.com/science/article/abs/pii/S0305054816300764) and [Aguiar Júnior (2021)](https://repositorio.ufc.br/bitstream/riufc/59600/3/2021_dis_jcajunior.pdf) and to Professor [Cassiano Tavares](https://scholar.google.com.br/citations?user=v55iBgUAAAAJ&hl=en&oi=ao)' classes.
 

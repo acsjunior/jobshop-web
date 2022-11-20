@@ -22,7 +22,7 @@ PAGES = {
     "disjunctiveJSSP": "Disjunctive model (Manne)",
     "disjunctiveJSSP2": "Disjunctive model (Liao)",
     "timeIndexedJSSP": "Time-indexed model",
-    "rankBasedJSSP": "Order-based model",
+    "rankBasedJSSP": "Rank-based model",
 }
 
 TEMPLATE_TIMES = [[5, 7, 10], [9, 5, 3], [5, 8, 2], [2, 7, 4], [8, 8, 8]]

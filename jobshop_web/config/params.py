@@ -31,8 +31,8 @@ TEMPLATE_ROUTES = [[2, 1, 3], [1, 2, 3], [3, 2, 1], [2, 1, 3], [3, 1, 2]]
 AGGRID_THEME = "alpine"
 # AGGRID_THEME = 'streamlit'
 
-TIME_UNITS = {"Minuto": "m", "Hora": "h", "Dia": "D"}
+TIME_UNITS = {"Minute": "m", "Hour": "h", "Day": "D"}
 
-JOB_COL = "Trabalho"
-MACHINE_PREFIX = "Máquina"
-STAGE_PREFIX = "Etapa"
+JOB_COL = "Job"
+MACHINE_PREFIX = "Machine"
+STAGE_PREFIX = "Step"

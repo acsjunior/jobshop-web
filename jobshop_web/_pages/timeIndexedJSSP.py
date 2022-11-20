@@ -37,31 +37,31 @@ def timeIndexedJSSP_page(session):
     with st.container():
         col1, col2, col3, col4, col5 = st.columns(5)
         with col1:
-            n_jobs = st.number_input(label="Número de Trabalhos", min_value=1, value=4)
+            n_jobs = st.number_input(label="Jobs", min_value=1, value=4)
         with col2:
             n_machines = st.number_input(
-                label="Número de máquinas", min_value=1, value=3
+                label="Machines", min_value=1, value=3
             )
         with col3:
-            dt_start = st.date_input("Data de início")
+            dt_start = st.date_input("Start date")
         with col4:
-            hr_start = st.time_input("Horário de início")
+            hr_start = st.time_input("Start time")
         with col5:
-            time_unit = st.selectbox("Unidade de tempo", tuple(TIME_UNITS.keys()))
+            time_unit = st.selectbox("Time unit", tuple(TIME_UNITS.keys()))
 
         col1, col2, col3 = st.columns([1, 3, 1])
         with col1:
             is_import_csv_selected = (
-                st.radio("Dados de entrada", ["Digitar", "Importar CSV"])
-                == "Importar CSV"
+                st.radio("Input data", ["Type", "Import CSV"])
+                == "Import CSV"
             )
         with col2:
             if is_import_csv_selected:
                 uploaded_tp = st.file_uploader(
-                    "Carregar tempos de processamento", type=["csv"]
+                    "Load processing times", type=["csv"]
                 )
                 uploaded_rp = st.file_uploader(
-                    "Carregar rotas de processamento", type=["csv"]
+                    "Load processing routes", type=["csv"]
                 )
 
         col1, col2, col3, col4 = st.columns([1, 1, 1, 1])
@@ -69,15 +69,15 @@ def timeIndexedJSSP_page(session):
             if is_import_csv_selected:
                 page.show_btn_download_csv(
                     page.get_template_times(),
-                    label="Baixar template tempos",
-                    filename="template_tempos.csv",
+                    label="Download template times",
+                    filename="template_times.csv",
                 )
         with col3:
             if is_import_csv_selected:
                 page.show_btn_download_csv(
                     page.get_template_routes(),
-                    label="Baixar template rotas",
-                    filename="template_rotas.csv",
+                    label="Download template routes",
+                    filename="template_routes.csv",
                 )
 
         if (
@@ -99,16 +99,16 @@ def timeIndexedJSSP_page(session):
                 n_jobs, n_machines, first_col=JOB_COL, prefix=STAGE_PREFIX
             )
 
-        st.subheader("Tempos de processamento")
+        st.subheader("Processing times")
         df_tp = page.generate_input_grid(df_tp)["data"]
 
-        st.subheader("Rotas de processamento")
+        st.subheader("Processing routes")
         df_rp = page.generate_input_grid(df_rp)["data"]
 
         ##### Resolução do problema #####
         col1, col2, col3, col4, col5 = st.columns(5)
         with col3:
-            btn_solve = st.button("Resolver")
+            btn_solve = st.button("Solve")
 
         if btn_solve:
             df_tp, tp_is_valid, tp_log_msgs = page.validate_input_grid(df_tp, JOB_COL)

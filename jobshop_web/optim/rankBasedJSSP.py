@@ -54,7 +54,7 @@ class RankBasedJSSP(ModelBase):
 
         # Função objetivo:
         def obj_rule(model):
-            return model.Cmax - 1
+            return model.Cmax
 
         model.obj = pyo.Objective(rule=obj_rule, sense=pyo.minimize)
 

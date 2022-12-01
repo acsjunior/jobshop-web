@@ -30,7 +30,7 @@ $q_{ijk} \colon \text{surplus variable}.$
 
 $\text{Min } C_{\text{max}}.$
 
-Sujeito a
+Subject to
 
 $x_{j,\sigma_{ji}} \geq x_{j,\sigma_{ji-1}} + p_{j,\sigma_{ji-1}} \; \; \forall j \in J, \; i \in M \mid i \geq 2,$
 

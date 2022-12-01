@@ -28,7 +28,7 @@ $
 
 $\text{Min } C_{\text{max}}.$
 
-Sujeito a
+Subject to
 
 $\sum\limits_{t \in H} y_{ijt} = 1 \;\; \forall i \in M, \; j \in J,$
 

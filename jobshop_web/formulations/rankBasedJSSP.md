@@ -34,7 +34,7 @@ $
 
 $\text{Min } C_{\text{max}}.$
 
-Sujeito a
+Subject to
 
 $\sum\limits_{j \in J} w_{jki} = 1 \;\; \forall i \in M, \; k \in J,$
 

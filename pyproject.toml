@@ -6,7 +6,7 @@ authors = ["António C. da Silva Júnior <juniorssz@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "3.9.13"
+python = ">=3.9.13"
 pandas = "^1.5.0"
 streamlit = "^1.13.0"
 streamlit-option-menu = "^0.3.2"

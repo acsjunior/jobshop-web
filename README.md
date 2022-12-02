@@ -27,9 +27,9 @@ glpk-utils
 locales-all
 ```
 
-<hr>
-
 2 - Access [https://share.streamlit.io](https://share.streamlit.io) and follow platform guidelines.
+
+<hr>
 
 ## Deployment guidelines on Heroku
 

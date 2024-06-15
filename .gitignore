@@ -152,3 +152,5 @@ Referências/
 
 # Execução em modo debug do VSCode
 .vscode/launch.json
+
+poetry.lock
